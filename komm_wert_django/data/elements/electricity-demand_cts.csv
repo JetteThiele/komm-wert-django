@@ -1,0 +1,2 @@
+name;amount;bus;carrier;profile;region;tech;type
+GHM-electricity-demand_cts;0.0;GHM-electricity;electricity;GHM-electricity-demand_cts-profile;GHM;demand_cts;load

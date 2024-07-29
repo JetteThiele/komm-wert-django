@@ -1,0 +1,2 @@
+name;bus;capacity;capacity_cost;capacity_potential;carrier;expandable;marginal_cost;output_parameters;profile;region;tech;type
+GHM-agri-pv_ver_ground;GHM-electricity;0.0;0.0;;solar;False;0.0;{};GHM-agri-pv_ver_ground-profile;GHM;pv_ground;volatile

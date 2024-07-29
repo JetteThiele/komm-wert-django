@@ -1,0 +1,2 @@
+name;amount;bus;carrier;profile;region;tech;type
+GHM-electricity-bev_charging;0.0;GHM-electricity;electricity;GHM-electricity-bev_charging-profile;GHM;bev_charging;load

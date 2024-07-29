@@ -1,0 +1,2 @@
+[console_scripts]
+ioutil = ioutil.__main__:main

@@ -1,0 +1,148 @@
+h3, h1 {
+    font-weight: 700
+}
+h1 {
+    font-size:2rem
+}
+.container img {
+    width: 100%
+}
+
+.row.grey {
+    background: #f7f7f7;
+    padding: 40px
+}
+
+.card {
+    border: 0
+}
+
+.card-body {
+    border: 1px solid #ddd;
+    border-top: 0;
+    border-bottom: 0
+}
+
+.card:last-child .card-body {
+    border-bottom: 1px solid #ddd
+}
+
+.card-header, .card, .card-header:first-child {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+a.links {
+    color: #002E50;
+    text-decoration: underline;
+}
+
+.card .card-header .card-link.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    color: #3b3b3b;
+    background: #ddd
+}
+
+.card .card-header .card-link {
+    display: block;
+    padding: 10px;
+    background: #002E50;
+    color: #fff;
+}
+table {
+    font-size:14px
+}
+h3.smallHeadline {
+    font-size: 1.2rem;
+}
+
+h2.rowHeader {
+    display: block;
+    padding:20px 20px;
+    line-height:0;
+    background: #ccd5dc;
+    font-weight:bold;
+    font-size:1.4rem
+}
+
+table th {
+    background: #002E50;
+    color: #fff;
+}
+
+table td {
+    font-weight: bold;
+}
+
+.card .card-header .card-link.light {
+    background: #ccd5dc;
+    color: #002E50
+}
+
+.btn-primary, .btn-primary:disabled, .btn-primary:disabled:hover {
+    background-color: #F1C40F;
+    border: 0;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.btn-primary:disabled, .btn-primary:disabled:hover {
+    opacity: 0.6;
+}
+
+small.text-danger {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle, .btn-primary:hover {
+    background-color: #FE7F2D
+
+}
+
+.alert-info {
+    background-color: #ccd5dc;
+    border: 1px solid #9babba;
+    color: #002E50
+}
+
+.green hr.border-dark {
+    border-color: #44af69 !important
+}
+
+.green h6 {
+    color: #44af69
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #002E50;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: -100vw 0 0 100vw #007bff;
+}
+
+input[type=range]::-moz-range-progress {
+    background: #002E50;
+    height: 8px;
+    border-radius: 5px;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    background: #ccd5dc;
+    border-radius: 5px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background: #ccd5dc;
+    border-radius: 5px;
+}

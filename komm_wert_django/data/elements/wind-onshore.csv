@@ -1,0 +1,2 @@
+name;bus;capacity;capacity_cost;capacity_potential;carrier;expandable;marginal_cost;output_parameters;profile;region;tech;type
+GHM-wind-onshore;GHM-electricity;0.0;0.0;;wind;False;0.0;{};GHM-wind-onshore-profile;GHM;onshore;volatile

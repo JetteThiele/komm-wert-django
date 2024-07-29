@@ -1,0 +1,9 @@
+name;region;type;balanced
+GHM-ch4;GHM;bus;True
+GHM-electricity;GHM;bus;True
+GHM-heat_central;GHM;bus;True
+GHM-heat_decentral;GHM;bus;True
+GHM-wood;GHM;bus;True
+GHM-lignite;GHM;bus;True
+GHM-biomass;GHM;bus;True
+GHM-biogas;GHM;bus;True

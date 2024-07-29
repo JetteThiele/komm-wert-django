@@ -1,0 +1,91 @@
+Metadata-Version: 2.1
+Name: srutil
+Version: 1.0.3
+Summary: Common Utils.
+Author-email: srg <srg.code@pm.me>
+License: Apache License, Version 2.0
+Project-URL: Homepage, https://github.com/codesrg/srutil
+Project-URL: Bug Tracker, https://github.com/codesrg/srutil/issues
+Keywords: srutil,util
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: urllib3
+Requires-Dist: requests
+Requires-Dist: pyperclip
+Requires-Dist: wikipedia
+Requires-Dist: speedtest-cli
+Requires-Dist: beautifulsoup4
+Requires-Dist: tabulate
+
+# Srutil
+
+[![PyPI](https://img.shields.io/pypi/v/srutil)](https://pypi.python.org/pypi/srutil)
+[![Pypi - License](https://img.shields.io/github/license/codesrg/srutil)](https://github.com/codesrg/srutil/blob/main/LICENSE)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/srutil?color=red)](https://pypi.python.org/pypi/srutil)
+
+Common Utils.
+
+## Installation
+
+`pip install -U srutil`
+
+## Usage
+
+Few usages of `srutil` package,
+
+To get home directory
+
+```python
+from srutil import util
+
+home_dir = util.home() 
+```
+
+###
+
+To get random number between `6` and `30`
+
+```python
+from srutil import util
+
+num = util.rand_num(6, 30)
+```
+
+###
+
+To check if network is available
+
+```python
+from srutil import util
+
+is_connected = util.isnetworkconnected()
+```
+
+###
+
+To paste data from clipboard
+
+```python
+from srutil import util
+
+data = util.from_clipboard()
+```
+
+###
+
+To get current time in milliseconds
+
+```python
+from srutil import util
+
+time_in_millis = util.current_in_millis()
+```
+
+## Issues:
+
+If you encounter any problems, please file an [issue](https://github.com/codesrg/srutil/issues) along with a detailed
+description.

@@ -1,0 +1,2 @@
+name;bus;capacity;carrier;input_parameters;marginal_cost;region;tech;type
+GHM-electricity-export;GHM-electricity;;electricity;{};0.0;GHM;export;excess
