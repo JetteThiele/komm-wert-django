@@ -1,2 +1,2 @@
-csrfmiddlewaretoken,mun_key_num,levy_rate,wea_area_max,wea_p_max,wea_area_ownertype1,wea_anteil_flaeche1,rotor_diameter,system_output,wea_eeg_share,wind_euro_share,ffpv_area_max,pv_p_max,ffpv_area_ownertype1,ffpv_anteil_flaeche1,ffpv_area_ownertype2,ffpv_anteil_flaeche2,apvv_area_ownertype1,apvh_area_ownertype1
-AFFukTUtwNes4K63WJsXRJ5hGSZPGg91rG4YVmYMSxlNAfpSFg04j0bjQQBnWsgj,0,0,400,0,0,0,130,4,0,0,0,45,Privateigentum,80,Gewerbliches Eigentum,20,0,0
+csrfmiddlewaretoken,mun_key_num,levy_rate,wea_area_ownertype1,ffpv_area_max,pv_p_max,ffpv_area_ownertype1,ffpv_anteil_flaeche1,apvv_area_ownertype1,apvh_area_ownertype1
+u0YBTjoTD07vO8yolCN8Z77z63bQ4Odal1n5uMscZKeQkDRd49lfrodBg1Nok0ks,0,0,0,50,0,0,0,0,0

@@ -4,7 +4,7 @@
     <title>Ergebnisse der kommunalen Wertschöpfung</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-            {% load static %}
+    {% load static %}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -71,7 +71,9 @@
         </div>
     </div>
     <hr>
-
+    {% if results.wea_pachteinnahmen != 0 or results.pv_pachteinnahmen != 0 or results.apv_pachteinnahmen != 0 or
+    results.wea_pacht_est != 0 or results.pv_pacht_est != 0 or results.apv_pacht_est != 0 or results.wea_pacht_gewst !=
+    0 or results.pv_pacht_gewst != 0 or results.apv_pacht_gewst != 0 %}
     <div class="row">
         <div class="col-md-6">
             <img alt="Pachterlöse Einnahmen"
@@ -112,6 +114,7 @@
             </table>
         </div>
     </div>
+    {% endif %}
     <hr>
 
     <h2 class="rowHeader">Gewerbesteuereinnahmen durch Anlagengewinne</h2>
