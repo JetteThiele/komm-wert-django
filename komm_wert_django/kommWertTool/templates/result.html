@@ -119,18 +119,24 @@
 
     <h2 class="rowHeader">Gewerbesteuereinnahmen durch Anlagengewinne</h2>
     <div class="row">
+          {% if results.gesamt_gewerbesteuer_3 != 0}
         <div class="col-md-6">
             <img alt="Gewerbesteuer Wind Einnahmen"
                  src="{% url 'sendplot' plot_gewerbesteuer_wind %}?v={{ time_instance }}"/>
         </div>
+            {% endif %}
+            {% if results.gesamt_gewerbesteuer_1 != 0}
         <div class="col-md-6">
             <img alt="Gewerbesteuer FF-PV Einnahmen"
                  src="{% url 'sendplot' plot_gewerbesteuer_ff_pv %}?v={{ time_instance }}"/>
         </div>
+            {% endif %}
+            {% if results.gesamt_gewerbesteuer_2 != 0}
         <div class="col-md-6">
             <img alt="Gewerbesteuer Agri-PV Einnahmen"
                  src="{% url 'sendplot' plot_gewerbesteuer_agri_pv %}?v={{ time_instance }}"/>
         </div>
+            {% endif %}
         <div class="col-md-6">
             <table class="table table-bordered">
                 <thead>
