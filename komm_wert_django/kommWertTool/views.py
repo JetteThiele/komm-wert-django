@@ -102,7 +102,7 @@ def submit(request):
         'time_instance': int(time())
     })
 
-def run_external_script(script_path, timeout=10):
+def run_external_script(script_path, timeout=300):
     try:
         logging.debug(f"Starte Skript: {script_path}")
         result = subprocess.run(['python', script_path], capture_output=True, text=True, check=True, timeout=timeout)
