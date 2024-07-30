@@ -72,7 +72,8 @@
     </div>
 {% if results.wea_pachteinnahmen != "0,00" or results.pv_pachteinnahmen != "0,00" or results.apv_pachteinnahmen != "0,00" or results.wea_pacht_est != "0,00" or results.pv_pacht_est != "0,00" or results.apv_pacht_est != "0,00" or results.wea_pacht_gewst != "0,00" or results.pv_pacht_gewst != "0,00" or results.apv_pacht_gewst != "0,00" %}
     <hr>
-    <div class="col-md-6">
+    <div class="row">
+        <div class="col-md-6">
             <img alt="Pachterlöse Einnahmen"
                  src="{% url 'sendplot' plot_komm_wert_jaehrliche_pachteinnahmen %}?v={{ time_instance }}"/>
         </div>
@@ -90,7 +91,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Direkte Pachteinnahmen</td>
+                    <td>Pachteinnahmen</td>
                     <td>{{ results.wea_pachteinnahmen }} €</td>
                     <td>{{ results.pv_pachteinnahmen }} €</td>
                     <td>{{ results.apv_pachteinnahmen }} €</td>
