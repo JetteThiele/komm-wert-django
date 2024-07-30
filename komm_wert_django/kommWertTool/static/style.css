@@ -10,7 +10,7 @@ h1 {
 
 .row.grey {
     background: #f7f7f7;
-    padding: 40px
+    padding: 40px;
 }
 
 .card {
@@ -52,7 +52,7 @@ a.links {
     color: #fff;
 }
 table {
-    font-size:14px
+    font-size:0.9rem
 }
 h3.smallHeadline {
     font-size: 1.2rem;
@@ -64,7 +64,8 @@ h2.rowHeader {
     line-height:0;
     background: #ccd5dc;
     font-weight:bold;
-    font-size:1.4rem
+    font-size:1.4rem;
+    border-radius: 4px;
 }
 
 table th {

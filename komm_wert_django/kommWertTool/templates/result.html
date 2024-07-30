@@ -70,8 +70,8 @@
             </table>
         </div>
     </div>
-    <hr>
 {% if results.wea_pachteinnahmen != "0,00" or results.pv_pachteinnahmen != "0,00" or results.apv_pachteinnahmen != "0,00" or results.wea_pacht_est != "0,00" or results.pv_pacht_est != "0,00" or results.apv_pacht_est != "0,00" or results.wea_pacht_gewst != "0,00" or results.pv_pacht_gewst != "0,00" or results.apv_pacht_gewst != "0,00" %}
+    <hr>
     <div class="col-md-6">
             <img alt="Pachterlöse Einnahmen"
                  src="{% url 'sendplot' plot_komm_wert_jaehrliche_pachteinnahmen %}?v={{ time_instance }}"/>
@@ -113,8 +113,9 @@
     </div>
     <hr>
 {% else %}
-    <div class="alert alert-info"="alert">
-        Keine Einnahmen durch Pachterlöse vorhanden.
+    <div class="alert alert-dark mt-4 mb-4" role="alert">
+         <i class="fas fa-info-circle" data-placement="left"></i>
+Keine Einnahmen durch Pachterlöse vorhanden, da keine Angaben gemacht wurden. Entsprechend wird von Landes-/Bundeseigentum ausgegangen.
     </div>
 {% endif %}
 <h2 class="rowHeader">Gewerbesteuereinnahmen durch Anlagengewinne</h2>
