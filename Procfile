@@ -1,1 +1,1 @@
-web: gunicorn komm_wert_django.wsgi:application --log-file -
+web: gunicorn komm_wert_django.komm_wert_django.wsgi:application --log-file -
