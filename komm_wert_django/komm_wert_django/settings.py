@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "komm_wert_django.kommWertTool"
+    "kommWertTool"
 ]
 
 MIDDLEWARE = [
