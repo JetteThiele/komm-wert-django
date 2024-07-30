@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 # Append the correct module path based on the environment
 if os.environ.get('KOMMWERTDJANGO_ENV') == 'production':
-    APP_NAME = 'kkommWertTool'
+    APP_NAME = 'kommWertTool'
 else:
     APP_NAME = 'kommWertTool'
 
