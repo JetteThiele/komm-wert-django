@@ -1,1 +1,1 @@
-web: gunicorn variables_from_form:app
+web: gunicorn komm_wert_django.wsgi:application --log-file -
