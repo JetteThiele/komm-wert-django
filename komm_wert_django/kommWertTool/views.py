@@ -12,13 +12,17 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-PLOTS_DIR = BASE_DIR / 'tmp/plots'
+PLOTS_DIR = BASE_DIR / 'tmp' / 'plots'
 
-if not PLOTS_DIR.exists():
-    PLOTS_DIR.mkdir(parents=True)
-    logging.debug(f"Verzeichnis erstellt: {PLOTS_DIR}")
-else:
-    logging.debug(f"Verzeichnis existiert bereits: {PLOTS_DIR}")
+# Sicherstellen, dass das Verzeichnis vorhanden ist
+def create_plots_directory():
+    if not PLOTS_DIR.exists():
+        PLOTS_DIR.mkdir(parents=True)
+        logging.debug(f"Verzeichnis erstellt: {PLOTS_DIR}")
+    else:
+        logging.debug(f"Verzeichnis existiert bereits: {PLOTS_DIR}")
+
+create_plots_directory()
 
 def clear_plots_directory():
     for filename in PLOTS_DIR.iterdir():
@@ -36,11 +40,10 @@ def index(request):
 @require_http_methods(["POST"])
 def submit(request):
     form_data = request.POST.dict()
-
     form_data = {k: '0' if v in ['', 'Bitte wählen:'] else v for k, v in form_data.items()}
     fieldnames = list(form_data.keys())
 
-    csv_path = BASE_DIR / 'tmp/input_variables.csv'
+    csv_path = BASE_DIR / 'tmp' / 'input_variables.csv'
     if csv_path.exists():
         csv_path.unlink()
 
@@ -51,16 +54,15 @@ def submit(request):
             writer.writerow([form_data[field] for field in fieldnames])
             file.flush()
             os.fsync(file.fileno())
-
         logging.debug("CSV-Datei erfolgreich geschrieben. Inhalt:")
         with open(csv_path, mode='r', encoding="utf-8") as check_file:
             logging.debug(check_file.read())
-
     except Exception as e:
         return HttpResponse(f"Fehler beim Speichern der Daten: {str(e)}", status=500)
 
     clear_plots_directory()
 
+    # Ausführung des externen Skripts
     results = run_external_script('area_costs_eeg_sr_bb.py')
 
     required_keys = [
@@ -82,14 +84,16 @@ def submit(request):
         return True
 
     start_time = time()
-    timeout_seconds = 1200
+    timeout_seconds = 600
+    sleep_interval = 2
 
-    logging.debug("Prüfe Plots existieren...")
+    logging.debug("Prüfe, ob die Plots existieren...")
+
     while not plots_exist():
         if time() - start_time > timeout_seconds:
             logging.error("Timeout waiting for plots to be created")
             return HttpResponse("Timeout waiting for plots to be created", status=500)
-        sleep(1)
+        sleep(sleep_interval)
 
     return render(request, 'result.html', {
         'results': results,
@@ -102,7 +106,7 @@ def submit(request):
         'time_instance': int(time())
     })
 
-def run_external_script(script_path, timeout=300):
+def run_external_script(script_path, timeout=600):
     try:
         logging.debug(f"Starte Skript: {script_path}")
         result = subprocess.run(['python', script_path], capture_output=True, text=True, check=True, timeout=timeout)

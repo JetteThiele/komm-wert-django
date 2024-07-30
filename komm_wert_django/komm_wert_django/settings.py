@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'shark-app-sxmdw.ondigitalocean.app',
+    '127.0.0.1',
 ]
 
 INSTALLED_APPS = [
