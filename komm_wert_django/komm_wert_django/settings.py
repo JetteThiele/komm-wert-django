@@ -29,15 +29,20 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# Append the correct module path based on the environment
+if os.environ.get('KOMMWERTDJANGO_ENV') == 'production':
+    APP_NAME = 'komm_wert_django.kommWertTool'
+else:
+    APP_NAME = 'kommWertTool'
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "kommWertTool"
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    APP_NAME,
 ]
 
 MIDDLEWARE = [

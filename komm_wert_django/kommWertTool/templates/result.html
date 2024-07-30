@@ -71,11 +71,8 @@
         </div>
     </div>
     <hr>
-    {% if results.wea_pachteinnahmen != 0 or results.pv_pachteinnahmen != 0 or results.apv_pachteinnahmen != 0 or
-    results.wea_pacht_est != 0 or results.pv_pacht_est != 0 or results.apv_pacht_est != 0 or results.wea_pacht_gewst !=
-    0 or results.pv_pacht_gewst != 0 or results.apv_pacht_gewst != 0 %}
-    <div class="row">
-        <div class="col-md-6">
+{% if results.wea_pachteinnahmen != "0,00" or results.pv_pachteinnahmen != "0,00" or results.apv_pachteinnahmen != "0,00" or results.wea_pacht_est != "0,00" or results.pv_pacht_est != "0,00" or results.apv_pacht_est != "0,00" or results.wea_pacht_gewst != "0,00" or results.pv_pacht_gewst != "0,00" or results.apv_pacht_gewst != "0,00" %}
+    <div class="col-md-6">
             <img alt="Pachterlöse Einnahmen"
                  src="{% url 'sendplot' plot_komm_wert_jaehrliche_pachteinnahmen %}?v={{ time_instance }}"/>
         </div>
@@ -114,45 +111,48 @@
             </table>
         </div>
     </div>
-    {% endif %}
     <hr>
-
-    <h2 class="rowHeader">Gewerbesteuereinnahmen durch Anlagengewinne</h2>
-    <div class="row">
-          {% if results.gesamt_gewerbesteuer_3 != 0}
+{% else %}
+    <div class="alert alert-info"="alert">
+        Keine Einnahmen durch Pachterlöse vorhanden.
+    </div>
+{% endif %}
+<h2 class="rowHeader">Gewerbesteuereinnahmen durch Anlagengewinne</h2>
+<div class="row">
+    {% if results.gesamt_gewerbesteuer_3 != "0,00" %}
         <div class="col-md-6">
             <img alt="Gewerbesteuer Wind Einnahmen"
                  src="{% url 'sendplot' plot_gewerbesteuer_wind %}?v={{ time_instance }}"/>
         </div>
-            {% endif %}
-            {% if results.gesamt_gewerbesteuer_1 != 0}
+    {% endif %}
+    {% if results.gesamt_gewerbesteuer_1 != "0,00" %}
         <div class="col-md-6">
             <img alt="Gewerbesteuer FF-PV Einnahmen"
                  src="{% url 'sendplot' plot_gewerbesteuer_ff_pv %}?v={{ time_instance }}"/>
         </div>
-            {% endif %}
-            {% if results.gesamt_gewerbesteuer_2 != 0}
+    {% endif %}
+    {% if results.gesamt_gewerbesteuer_2 != "0,00" %}
         <div class="col-md-6">
             <img alt="Gewerbesteuer Agri-PV Einnahmen"
                  src="{% url 'sendplot' plot_gewerbesteuer_agri_pv %}?v={{ time_instance }}"/>
         </div>
-            {% endif %}
-        <div class="col-md-6">
-            <table class="table table-bordered">
-                <thead>
+    {% endif %}
+    <div class="col-md-6 m-auto">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
                     <th></th>
                     <th>WEA</th>
                     <th>FF-PV</th>
                     <th>APV</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 <tr>
                     <td>Max. jährl. GewSt.</td>
-                    <td>{{ results.wea_pachteinnahmen }} €</td>
-                    <td>{{ results.pv_pachteinnahmen }} €</td>
-                    <td>{{ results.apv_pachteinnahmen }} €</td>
+                    <td>{{ results.max_steuer_3 }} €</td>
+                    <td>{{ results.max_steuer_1 }} €</td>
+                    <td>{{ results.max_steuer_2 }} €</td>
                 </tr>
                 <tr>
                     <td>Einnahmen über 25 Jahre</td>
@@ -160,10 +160,11 @@
                     <td>{{ results.gesamt_gewerbesteuer_1 }} €</td>
                     <td>{{ results.gesamt_gewerbesteuer_2 }} €</td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
 </body>

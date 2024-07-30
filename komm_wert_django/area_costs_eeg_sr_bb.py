@@ -851,6 +851,11 @@ def main():
             max_steuer = max(summierte_steuern)
             return max_steuer
 
+        # Berechne und drucke den maximalen aufsummierten Gewerbesteuerbetrag je Szenario
+        max_steuer_1 = max_annual_sum(gewerbesteuer_results, szenariennamen_fuer_summe_1)
+        max_steuer_2 = max_annual_sum(gewerbesteuer_results, szenariennamen_fuer_summe_2)
+        max_steuer_3 = max_annual_sum(gewerbesteuer_results, szenariennamen_fuer_summe_3)
+
         gesamt_gewerbesteuer_1 = sum(
             sum(jahressteuer for jahr, jahressteuer in gewerbesteuer_results[szenarioname] if jahressteuer > 0) for
             szenarioname in szenariennamen_fuer_summe_1)
@@ -895,6 +900,12 @@ def main():
         wea_area_gewst_total = format_numbers(wea_area_gewst_total)
         pv_area_gewst_total = format_numbers(pv_area_gewst_total)
         apv_pacht_gewst = format_numbers(apv_pacht_gewst)
+        gesamt_gewerbesteuer_1 = format_numbers(gesamt_gewerbesteuer_1)
+        gesamt_gewerbesteuer_2 = format_numbers(gesamt_gewerbesteuer_2)
+        gesamt_gewerbesteuer_3 = format_numbers(gesamt_gewerbesteuer_3)
+        max_steuer_1 = format_numbers(max_steuer_1)
+        max_steuer_2 = format_numbers(max_steuer_2)
+        max_steuer_3 = format_numbers(max_steuer_3)
 
         results.update({"wind_eeg_yearly": wind_eeg_yearly,
                    "pv_eeg_yearly": pv_eeg_yearly,
@@ -920,8 +931,10 @@ def main():
                         'wea_pacht_gewst': wea_area_gewst_total,
                         'pv_pacht_gewst': pv_area_gewst_total,
                         'apv_pacht_gewst': apv_pacht_gewst,
-
-                   })
+                        'max_steuer_1': max_steuer_1,
+                        'max_steuer_2': max_steuer_2,
+                        'max_steuer_3': max_steuer_3,
+                        })
 
         try:
             json_output = json.dumps(results)
