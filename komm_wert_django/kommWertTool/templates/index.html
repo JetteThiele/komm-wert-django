@@ -101,7 +101,7 @@
                                            title="Falls nicht bekannt, wird eine Schlüsselzahl von 0,003 angenommen."></i>
                                      </label>
                                     <input class="form-control" id="mun_key_num" name="mun_key_num"
-                                           type="text">
+                                           type="number">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="levy_rate">
@@ -113,7 +113,7 @@
                                            title="Falls nicht bekannt, wird der durchschnittliche Hebesatz für Brandenburg im Jahr 2022 angenommen (334 %)."></i>
                                     </label>
                                     <input class="form-control" id="levy_rate" name="levy_rate"
-                                           type="text">
+                                           type="number">
                                 </div>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                                            title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
                                     </label>
                                     <input class="form-control" disabled id="wea_area_max" name="wea_area_max"
-                                           type="text">
+                                           type="number">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="wea_p_max">
@@ -149,7 +149,7 @@
                                         <i class="fas fa-info-circle" data-placement="right" data-toggle="tooltip"
                                            title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
                                     </label>
-                                    <input class="form-control" disabled id="wea_p_max" name="wea_p_max" type="text">
+                                    <input class="form-control" disabled id="wea_p_max" name="wea_p_max" type="number">
                                 </div>
 
                             </div>
@@ -185,7 +185,7 @@
                                         <label for="wea_anteil_flaeche1">Anteil an Fläche in %:</label>
                                         <input class="form-control" id="wea_anteil_flaeche1" name="wea_anteil_flaeche1"
                                                oninput="validateAnteilFlaeche('wea')"
-                                               type="text">
+                                               type="number">
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                                            title="Die EEG-Beteiligung wird auf Gemeinden im 2,5-km-Umkreis verteilt, basierend auf ihrem Flächenanteil in diesem Radius."></i>
                                     </label>
                                     <input class="form-control" disabled id="wea_eeg_share" name="wea_eeg_share"
-                                           type="text" value="100">
+                                           type="number" value="100">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="wind_euro_share">
@@ -236,7 +236,7 @@
                                            title="Der Wind-Euro wird auf Gemeinden im 3-km-Umkreis verteilt, basierend auf ihrem Flächenanteil in diesem Radius."></i>
                                     </label>
                                     <input class="form-control" disabled id="wind_euro_share" name="wind_euro_share"
-                                           type="text" value="100">
+                                           type="number" value="100">
                                 </div>
                             </div>
 
@@ -265,7 +265,7 @@
                                                title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
                                         </label>
                                         <input class="form-control" disabled id="ffpv_area_max" name="ffpv_area_max"
-                                               type="text">
+                                               type="number">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="pv_p_max">
@@ -273,7 +273,7 @@
                                             <i class="fas fa-info-circle" data-placement="right" data-toggle="tooltip"
                                                title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
                                         </label>
-                                        <input class="form-control" disabled id="pv_p_max" name="pv_p_max" type="text">
+                                        <input class="form-control" disabled id="pv_p_max" name="pv_p_max" type="number">
                                     </div>
 
                                 </div>
@@ -311,7 +311,7 @@
                                             <label for="ffpv_anteil_flaeche1">Anteil an Fläche in %:</label>
                                             <input class="form-control" id="ffpv_anteil_flaeche1"
                                                    name="ffpv_anteil_flaeche1" oninput="validateAnteilFlaeche('ffpv')"
-                                                   type="text">
+                                                   type="number">
                                         </div>
                                     </div>
                                 </div>
@@ -346,7 +346,7 @@
                                                title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
                                         </label>
                                         <input class="form-control" disabled id="apvv_area_max" name="apvv_area_max"
-                                               type="text">
+                                               type="number">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="apv_ver_p_max">
@@ -355,7 +355,7 @@
                                                title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
                                         </label>
                                         <input class="form-control" disabled id="apv_ver_p_max" name="apv_ver_p_max"
-                                               type="text">
+                                               type="number">
                                     </div>
                                 </div>
                                 <div class="row align-items-center my-4 green">
@@ -392,7 +392,7 @@
                                             <input class="form-control" id="apvv_anteil_flaeche1"
                                                    name="apvv_anteil_flaeche1"
                                                    oninput="validateAnteilFlaeche('apvv')"
-                                                   type="text">
+                                                   type="number">
                                         </div>
                                     </div>
                                 </div>
@@ -429,7 +429,7 @@
                                                title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
                                         </label>
                                         <input class="form-control" disabled id="apvh_area_max" name="apvh_area_max"
-                                               type="text">
+                                               type="number">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="apv_hor_p_max">
@@ -439,7 +439,7 @@
                                                title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
                                         </label>
                                         <input class="form-control" disabled id="apv_hor_p_max" name="apv_hor_p_max"
-                                               type="text">
+                                               type="number">
                                     </div>
                                 </div>
                                 <div class="row align-items-center my-4 green">
@@ -477,7 +477,7 @@
                                             <input class="form-control" id="apvh_anteil_flaeche1"
                                                    name="apvh_anteil_flaeche1"
                                                    oninput="validateAnteilFlaeche('apvh')"
-                                                   type="text">
+                                                   type="number">
                                         </div>
                                     </div>
                                 </div>
@@ -574,7 +574,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="${type}_anteil_flaeche${counters[type]}">Anteil an Fläche in %:</label>
-                    <input class="form-control" id="${type}_anteil_flaeche${counters[type]}" name="${type}_anteil_flaeche${counters[type]}" type="text" oninput="validateAnteilFlaeche('${type}')">
+                    <input class="form-control" id="${type}_anteil_flaeche${counters[type]}" name="${type}_anteil_flaeche${counters[type]}" type="number" oninput="validateAnteilFlaeche('${type}')">
                     <small id="${type}_error_msg${counters[type]}" class="text-danger d-none">Die Summe der Flächenanteile liegt über 100 %. Bitte reduzieren sie die Anteile.</small>
                 </div>
             </div>`;
