@@ -11,10 +11,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
+
+# Basis- und Verzeichnis-Einstellungen
 BASE_DIR = Path(__file__).resolve().parent.parent
 PLOTS_DIR = BASE_DIR / 'tmp' / 'plots'
 
-# Sicherstellen, dass das Verzeichnis vorhanden ist
+# Verzeichnis erstellen, falls nicht vorhanden
 def create_plots_directory():
     if not PLOTS_DIR.exists():
         PLOTS_DIR.mkdir(parents=True)
@@ -24,6 +26,7 @@ def create_plots_directory():
 
 create_plots_directory()
 
+# Verzeichnis löschen
 def clear_plots_directory():
     for filename in PLOTS_DIR.iterdir():
         if filename.is_file() or filename.is_symlink():
@@ -31,12 +34,14 @@ def clear_plots_directory():
         elif filename.is_dir():
             rmtree(filename)
 
+# Haupt-Ansicht
 def index(request):
     try:
         return render(request, 'index.html')
     except Exception as e:
         return HttpResponse(f'Fehler beim Lesen der index.html: {str(e)}', status=500)
 
+# Einsende-Ansicht
 @require_http_methods(["POST"])
 def submit(request):
     form_data = request.POST.dict()
@@ -106,6 +111,7 @@ def submit(request):
         'time_instance': int(time())
     })
 
+# Skript ausführen
 def run_external_script(script_path, timeout=600):
     try:
         logging.debug(f"Starte Skript: {script_path}")
@@ -127,6 +133,7 @@ def run_external_script(script_path, timeout=600):
         logging.error(f"Fehler beim Dekodieren von JSON: {str(e)}")
         return {"error": f"Fehler beim Dekodieren von JSON: {str(e)}"}
 
+# Plot senden
 def send_plot(request, filename):
     path = PLOTS_DIR / filename
     logging.debug(f"Sending plot from {PLOTS_DIR} : {filename}")
