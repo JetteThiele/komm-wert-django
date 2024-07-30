@@ -25,8 +25,9 @@ SECRET_KEY = "django-insecure-nryei06hwhm)3k6+gpl2_q(hy2j2n)dv93gu$46ie17n!_$ig1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'shark-app-sxmdw.ondigitalocean.app',
+]
 
 # Application definition
 # Append the correct module path based on the environment
