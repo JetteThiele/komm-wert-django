@@ -1,6 +1,7 @@
 Django>=3.2,<4.0
 gunicorn
 whitenoise
+python-dotenv
 matplotlib
 pandas
 numpy

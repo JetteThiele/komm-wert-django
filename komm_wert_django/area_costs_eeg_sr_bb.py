@@ -17,11 +17,11 @@ logging.basicConfig(level=logging.DEBUG)
 locale.setlocale(locale.LC_ALL, 'C')
 
 if 'DYNO' in os.environ:
-    # Heroku-Umgebung
+    # Heroku-Environment
     SEQUENCES_DIR = Path('/tmp/sequences')
     PLOTS_DIR = Path('/tmp/plots')
 else:
-    # Lokale Umgebung
+    # Local Environment
     CURRENT_DIR = Path(__file__).resolve().parent
     SEQUENCES_DIR = CURRENT_DIR / 'data/sequences'
     PLOTS_DIR = CURRENT_DIR / 'tmp/plots'
@@ -31,6 +31,7 @@ try:
 except Exception as e:
     sys.exit(1)
 
+# read data from csv
 def read_form_data():
     data = {}
     try:
@@ -46,7 +47,7 @@ def read_form_data():
                         except ValueError:
                             pass
                     data[key] = value
-
+                # read area ownership depending on number of inputs
                 flaechen_eigentuemer = {
                     'wea': [],
                     'apvv': [],
@@ -183,14 +184,17 @@ def main():
         apvv_mw_ha = 0.35
         apvh_mw_ha = 0.65
 
+        # standard levy rate if None is given
         if levy_rate == 0:
             sz_ghm = 0.3
         else:
             sz_ghm = levy_rate * 100
+        # standard mun value key if None is given
         if mun_key_value == 0:
             hebesatz = 3.34
         else:
             hebesatz = mun_key_value / 100
+        # if no area for eeg or wind-euro is given, set to 100%
         if wea_eeg_share == 0:
             wea_eeg_share = 1
         else:
@@ -201,7 +205,7 @@ def main():
             wind_euro_share = wind_euro_share / 100
         # Calculate max. power if only area is given
         if wea_p_max == 0 and wea_area_max != 0:
-            A_wea = np.pi * rotor_diameter * 1.5 * rotor_diameter * 2.5
+            A_wea = (np.pi * rotor_diameter * 5 * rotor_diameter * 3)/5
             N_wea = round((wea_area_max * 10000) / A_wea)
             wea_p_max = system_output * N_wea
         else:
@@ -218,10 +222,9 @@ def main():
             apv_hor_p_max = apvh_area_max * apvh_mw_ha
         else:
             apv_hor_p_max = apv_hor_p_max
-
         # Calculate area if only power is given
         if wea_area_max == 0 and wea_p_max != 0:
-            A_wea = np.pi * (rotor_diameter * 1.5) * (rotor_diameter * 2.5)
+            A_wea = (np.pi * rotor_diameter * 5 * rotor_diameter * 3)/5
             N_wea = round(wea_p_max / system_output)
             wea_area_max = (A_wea * N_wea) / 10000
         else:
@@ -238,7 +241,6 @@ def main():
             apvh_area_max = apvh_area_max / apvh_mw_ha
         else:
             apvh_area_max = apvh_area_max
-
         # invest costs for tec depending on power of tec
         if system_output < 4:
             wea_invest_cost = 1846000
@@ -276,6 +278,7 @@ def main():
         else:
             apvh_invest_costs = 750000*1.26
 
+        # read feed-in profiles
         wind_profile = pd.read_csv(SEQUENCES_DIR / 'wind-onshore_profile.csv', delimiter=';')
         agri_pv_hor_profile = pd.read_csv(SEQUENCES_DIR / 'agri-pv_hor_ground_profile.csv', header=0, delimiter=';')
         agri_pv_ver_profile = pd.read_csv(SEQUENCES_DIR / 'agri-pv_ver_ground_profile.csv', header=0, delimiter=';')
@@ -285,6 +288,9 @@ def main():
         plot_file_einnahmen_wind_solar_euro = f'einnahmen-wind-solar-euro_{timestamp}.png'
         plot_file_komm_wert_eeg_einnahmen = f'komm-wert-eeg-einnahmen_{timestamp}.png'
 
+        '''
+        MUN INCOME FROM LEASES 
+        '''
         # calculate income tax for the regular average income
         z_income = int(year_income_bb - 17005) / 10000
         est_income = int((181.19 * z_income + 2397) * z_income + 1025.38)
@@ -396,6 +402,7 @@ def main():
         area_costs_yearly = [wea_area_income, pv_area_income, apvh_area_income + apvv_area_income]
         area_gewst_yearly = [wea_area_gewst_total, pv_area_gewst_total, apvh_area_gewst_total + apvv_area_gewst_total]
         area_est_yearly = [ghm_est_income_wea, ghm_est_income_pv, ghm_est_income_apvh + ghm_est_income_apvv]
+
         '''
         EEG participation
         '''
@@ -431,10 +438,9 @@ def main():
                                                                                         iterations)
 
         '''
-        Sonderregelung BB
+        Special Regulation BB - Wind-/Solar-Euro
         '''
 
-        # Calculation with 6 WTGs into operation from 2025
         wind_sr_bb_yearly = (wea_p_max * bb_euro_mw_wind) * wind_euro_share
         pv_sr_bb_yearly = pv_p_max * bb_euro_mw_pv
         apv_sr_bb_yearly = (apv_ver_p_max + apv_hor_p_max) * bb_euro_mw_pv
@@ -567,7 +573,7 @@ def main():
                         wse_output_file, bar_colors)
 
         ''' 
-         Investitionskosten 
+         INVESTMENT COSTS 
          '''
 
         def calculate_profit_year(title, eeg_anteil_gemeinde, investitionskosten, fremdkapitalanteil, zinshoehe,
@@ -575,7 +581,7 @@ def main():
                                   jaehrliche_betriebskosten_ab_11_jahr, erzeugte_energiemenge, preis_pro_mengeneinheit,
                                   steuermessbetrag, hebesatz, freibetrag, tilgungsfreie_jahre, jaehrliche_abschreibung,
                                   abschreibungs_dauer, degradation, initial_loss_carryforward=0):
-            # Initiale Berechnungen
+            # Initiale Calculation
             fremdkapital = investitionskosten * fremdkapitalanteil
 
             if tilgungsfreie_jahre == 1:
@@ -597,7 +603,7 @@ def main():
             gewinn_start_jahr = None
             total_loss_carryforward = initial_loss_carryforward
 
-            for jahr in range(1, 26):  # Jahre 1 bis 25
+            for jahr in range(1, 26):  # Year 1 to 25
                 if jahr <= 10:
                     jaehrliche_betriebskosten = jaehrliche_betriebskosten_ersten_10_jahre
                 else:
@@ -647,12 +653,12 @@ def main():
                     adjusted_profit = jaehrlicher_gewinn
 
                     if total_loss_carryforward > 0 and adjusted_profit > 0:
-                        # Bis zu 1 Mio. Verlust abziehen
+                        # Deduct up to 1 million loss
                         subtracted_loss = min(1_000_000, adjusted_profit, total_loss_carryforward)
                         adjusted_profit -= subtracted_loss
                         total_loss_carryforward -= subtracted_loss
 
-                        # 60% des restlichen Gewinns abziehen
+                        # Deduct 60% of the remaining profit
                         if total_loss_carryforward > 0 and total_loss_carryforward > (adjusted_profit * 0.6):
                             extra_loss = adjusted_profit * 0.6
                             total_loss_carryforward -= extra_loss
@@ -682,25 +688,6 @@ def main():
             return (
                 gewinn_start_jahr if gewinn_start_jahr is not None else "kein Gewinn"), jahresgewinne, gewerbesteuer, kumulierte_jahresgewinne
 
-        def prepare_case_data(case_data):
-            prepared_data = {}
-            for item in case_data:
-                # Überprüfen, ob item iterierbar ist und aus Tupeln (Jahr, Wert) besteht
-                if isinstance(item, (list, tuple)) and len(item) == 2 and isinstance(item[0], int):
-                    year, value = item
-                    prepared_data[year] = prepared_data.get(year, 0) + value
-                elif isinstance(item, (list, tuple)):
-                    for year, value in item:
-                        prepared_data[year] = prepared_data.get(year, 0) + value
-            return list(prepared_data.items())
-
-        def combine_cases(case_results, szenariennamen):
-            combined_results = {i: 0 for i in range(1, 26)}  # Initialisierung für 25 Jahre
-            for szenarioname in szenariennamen:
-                scenario_results = case_results.get(szenarioname, [])
-                for year, val in scenario_results:
-                    combined_results[year] += val
-            return list(combined_results.items())
 
         def plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe, title,
                                      filename):
@@ -733,7 +720,7 @@ def main():
             plt.close()
 
         def run_scenario(params, results):
-            # Überprüfung der Parameter auf NoneType und Zuweisung von Standardwerten
+
             berechnete_mw = params.get("berechnete_mw", 0)
             genehmigte_anlagen = params.get("genehmigte_anlagen", 0)
             eeg_beteiligung = params.get("eeg_beteiligung", 0)
@@ -748,7 +735,6 @@ def main():
             degradation = params.get("degradation", 0)
             title = params.get("title", "Unknown Scenario")
 
-            # Individuelle Berechnungen je nach Szenario
             wind_euro_2026 = berechnete_mw - genehmigte_anlagen if genehmigte_anlagen < berechnete_mw else 0
             investitionskosten = investitionskosten * berechnete_mw
             fremdkapitalanteil = params.get("fremdkapitalanteil", 0.8)  # Standard 80%
@@ -786,13 +772,13 @@ def main():
                                                                                                         abschreibungs_dauer,
                                                                                                         degradation)
 
-            # Speichern der Gewerbesteuer im Resultate-Dictionary
+            # Saving the trade tax in the result dictionary
             results[params["name"]] = gewerbesteuer
 
-        # Gewerbesteuer-Resultate für verschiedene Szenarien speichern
+        # Save trade tax results for different scenarios
         gewerbesteuer_results = {}
 
-        # Szenarien durchlaufen
+        # Defining scenarios
         szenarien = [  # Wind 100%
             {"berechnete_mw": wea_p_max, "erzeugte_energiemenge": 2550000,
              "preis_pro_mengeneinheit": 0.0828, "eeg_beteiligung": 2,
@@ -827,27 +813,25 @@ def main():
              "title": "Max. Gewerbesteuer der Agri-PV-Anlagen (ver.)",
              "filename": "komm-wert-gwst-anlagenbetreibende-agri-pv-ver-1.png", "freibetrag": 24500,
              "tilgungsfreie_jahre": 1, "name": 'APVV100', "abschreibungs_dauer": 20, "degradation": 0.005},
-            # Fügen Sie hier weitere Szenarien hinzu
         ]
         for szenario in szenarien:
             run_scenario(szenario, gewerbesteuer_results)
 
-        # Beispiel: Zusammenrechnung der Gewerbesteuer für spezifische Szenarien
         szenariennamen_fuer_summe_1 = ["FFPV100"]
         szenariennamen_fuer_summe_2 = ["APVV100", "APVH100"]
         szenariennamen_fuer_summe_3 = ["Wind100"]
 
         def max_annual_sum(gewerbesteuer_results, szenariennamen_fuer_summe):
-            summierte_steuern = [0] * 25  # Initialisiere eine Liste für 20 Jahre
+            summierte_steuern = [0] * 25
 
-            # Summiere die Gewerbesteuer je Jahr über die spezifischen Szenarien hinweg
+            # Sum up the trade tax per year across the specific scenarios
             for jahr in range(1, 26):
                 for szenarioname in szenariennamen_fuer_summe:
                     for j, steuer in gewerbesteuer_results[szenarioname]:
                         if j == jahr:
                             summierte_steuern[jahr - 1] += steuer
 
-            # Finde den maximalen Wert der summierten Gewerbesteuer pro Jahr
+            # Find the maximum value of the total trade tax per year
             max_steuer = max(summierte_steuern)
             return max_steuer
 
