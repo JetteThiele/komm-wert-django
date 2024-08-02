@@ -287,6 +287,7 @@ def main():
         plot_file_komm_wert_jaehrliche_pachteinnahmen = f'komm-wert-jaehrliche-pachteinnahmen_{timestamp}.png'
         plot_file_einnahmen_wind_solar_euro = f'einnahmen-wind-solar-euro_{timestamp}.png'
         plot_file_komm_wert_eeg_einnahmen = f'komm-wert-eeg-einnahmen_{timestamp}.png'
+        plot_file_gesamteinnahmen = f'ueberblick-gemeindeeinnahmen_{timestamp}.png'
 
         '''
         MUN INCOME FROM LEASES 
@@ -473,10 +474,6 @@ def main():
                 return f'{x / 1_000:.1f} T€'.replace(".", ",")
             else:
                 return str(x)
-
-        # Filter bars with height 0
-        area_costs_yearly_filtered = area_costs_yearly
-        indexes_costs_yearly_filtered = range(len(area_costs_yearly))
 
         plot_area_costs = ax.bar(index + bar_width * 2.5, area_costs_yearly, bar_width,
                                  alpha=opacity,
@@ -862,6 +859,179 @@ def main():
         plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_3, "Gewerbesteuereinnahmen WEA-MAX",
                                  plot_file_gewerbesteuer_wind)
 
+
+        '''
+        ALL MUN INCOME FOR 25 YEARS
+        '''
+
+        years = 25
+
+        # Array mit allen Szenarien bilden
+        gewerbesteuer_anlagen = [gesamt_gewerbesteuer_3, gesamt_gewerbesteuer_1,
+                                 gesamt_gewerbesteuer_2]
+        eeg_einnahmen = [wind_eeg_degradation_result.sum(), pv_eeg_degradation_result.sum(),
+                         apv_eeg_degradation_result.sum()]
+        sr_bb_einnahmen = [wind_sr_bb_yearly * years, pv_sr_bb_yearly * years, apv_sr_bb_yearly * years]
+
+
+        def plot_bars(ax, index, data, base_offset, offsets, label, color, height_store=None, bar_width=0.4):
+            # Sicherstellen, dass offsets eine Liste ist
+            if isinstance(offsets, (int, float)):
+                offsets = [offsets] * len(data)
+            elif len(data) != len(offsets):
+                raise ValueError("Length of data and offsets must be the same")
+
+            mask = np.array(data) != 0
+            visible_data = [d for d in data if d != 0]
+            visible_index = [i for i, m in zip(index, mask) if m]
+            bar_positions = [i * base_offset + o for i, o in zip(visible_index, offsets)]
+            bars = ax.bar(bar_positions, visible_data, bar_width,
+                          alpha=opacity,
+                          color=color,
+                          label=label,
+                          zorder=2)
+
+            if height_store is not None:
+                if isinstance(height_store, list):
+                    if all(isinstance(l, list) for l in height_store):
+                        for i, bar in enumerate(bars):
+                            if i < len(height_store):
+                                height_store[i].append(bar.get_height())
+                    else:
+                        for bar in bars:
+                            height_store.append(bar.get_height())
+                else:
+                    raise ValueError("height_store should be a list or a list of lists")
+
+            return bars
+
+        def format_height(height):
+            if height >= 1_000_000:
+                return f"{height / 1_000_000:.1f} Mio".replace(".", ",")
+            elif height >= 1_000:
+                return f"{height / 1_000:.1f} T".replace(".", ",")
+            else:
+                return str(height)
+
+        def custom_formatter(x, pos):
+            if x >= 1_000_000:
+                return f'{x / 1_000_000:.1f} Mio €'.replace(".", ",")
+            elif x >= 1_000:
+                return f'{x / 1_000:.1f} T€'.replace(".", ",")
+            else:
+                return str(x)
+
+        index = np.array([0, 1, 2]) 
+        bar_width = 0.4
+        opacity = 1
+        fig, ax7 = plt.subplots(figsize=(12, 7))
+        ax_sec = ax7.twinx()
+
+        # base offset between scenarios
+        base_offset = 3.5
+
+        # special offsets for scenarios
+        offset_scenario_2_and_3 = [-3, -1.8, -0.6, 0.6, 1.8, 3]
+        offset_scenario_4 = [-1.8, -0.6, 0.6, 1.8]
+
+        # Arrays, to save heights of bars
+        heights_wea = []
+        heights_ff_pv = []
+        heights_agri_pv = []
+
+
+        area_costs_yearly = [wea_area_income * years, pv_area_income * years, (apvh_area_income + apvv_area_income) * years]
+        area_gewst_yearly = [wea_area_gewst_total * years, pv_area_gewst_total * years, (apvh_area_gewst_total + apvv_area_gewst_total) * years]
+        area_est_yearly = [ghm_est_income_wea * years, ghm_est_income_pv * years, (ghm_est_income_apvh + ghm_est_income_apvv) * years]
+
+
+        # Balken für das zweite und dritte Szenario plotten (je 5 Balken)
+        gewst_anlagen_gewinne = plot_bars(ax7, index[0:], gewerbesteuer_anlagen[0:], base_offset,
+                                          offset_scenario_2_and_3[0] * bar_width,
+                                          'GewSt.-Einnahmen Anlagengewinne', htw_blue, [heights_wea,heights_ff_pv, heights_agri_pv])
+        sr_bb_einnahmen_sec = plot_bars(ax7, index[0:], sr_bb_einnahmen[0:], base_offset,
+                                        offset_scenario_2_and_3[1] * bar_width,
+                                        'Einnahmen Wind-/Solar-Euro', htw_orange, [heights_wea,heights_ff_pv, heights_agri_pv])
+        eeg_einnahmen_sec = plot_bars(ax7, index[0:], eeg_einnahmen[0:], base_offset,
+                                      offset_scenario_2_and_3[2] * bar_width,
+                                      'Einnahmen EEG-Beteiligung', htw_green, [heights_wea,heights_ff_pv, heights_agri_pv])
+        pachteinnahmen_area = plot_bars(ax7, index[0:], area_costs_yearly[0:], base_offset,
+                                         offset_scenario_2_and_3[3] * bar_width,
+                                         'Direkte Pachteinnahmen', 'red', [heights_wea,heights_ff_pv, heights_agri_pv])
+
+        pachteinnahmen_gewst = plot_bars(ax7, index[0:], area_gewst_yearly[0:], base_offset,
+                                         offset_scenario_2_and_3[4] * bar_width,
+                                         'GewSt.-Einnahmen Pacht', htw_grey, [heights_wea,heights_ff_pv, heights_agri_pv])
+        pachteinnahmen_est = plot_bars(ax7, index[0:], area_est_yearly[0:], base_offset,
+                                       offset_scenario_2_and_3[5] * bar_width,
+                                       'ESt.-Einnahmen Pacht', htw_yellow, [heights_wea,heights_ff_pv, heights_agri_pv])
+
+        # Zahlenwerte über den Balken anzeigen
+        for rect in pachteinnahmen_area + gewst_anlagen_gewinne + sr_bb_einnahmen_sec + eeg_einnahmen_sec + pachteinnahmen_gewst + pachteinnahmen_est:
+            height = rect.get_height()
+            formatted_height = format_height(height)
+            ax7.annotate(formatted_height,
+                         xy=(rect.get_x() + rect.get_width() / 2, height),
+                         xytext=(0, 3),  # Abstand von 3 erhöhen für bessere Sichtbarkeit
+                         textcoords="offset points",
+                         ha='center', va='bottom', fontweight='bold', fontsize='9',
+                         bbox=dict(facecolor='white', edgecolor='none', pad=2))
+
+        # Summen für jede Kategorie (WEA, FF-PV, Agri-PV) berechnen
+        sum_wea = np.sum(heights_wea)
+
+        sum_ff_pv = np.sum(heights_ff_pv)
+        sum_agri_pv = np.sum(heights_agri_pv)
+
+        sums = [sum_wea, sum_ff_pv, sum_agri_pv]
+        # Separate Bars für Gesamt-Einnahmen rechts von der Trennlinie plotten
+        sum_positions = [x + base_offset * 3.5 for x in index]  # Verschiebe nach rechts
+        summary_bars = ax_sec.bar(sum_positions, sums, bar_width, alpha=opacity, color='k', label='Gesamteinnahmen')
+
+        # Zahlenwerte über den Summenbalken anzeigen
+        for rect in summary_bars:
+            height = rect.get_height()
+            formatted_height = format_height(height)
+            ax_sec.annotate(formatted_height,
+                            xy=(rect.get_x() + rect.get_width() / 2, height),
+                            xytext=(0, 3),  # Abstand von 3 erhöhen für bessere Sichtbarkeit
+                            textcoords="offset points",
+                            ha='center', va='bottom', fontweight='bold', fontsize='9')
+
+        # Separate Bars für Gesamt-Einnahmen rechts von der Trennlinie plotten
+        sum_positions = [x + base_offset * 3.5 for x in index]  # Verschiebe nach rechts
+        ax_sec.bar(sum_positions, sums, bar_width, alpha=opacity, color='#3b3b3b', label='Gesamteinnahmen')
+
+        # Trennlinie hinzufügen
+        max_y = max(ax7.get_ylim()[1], max(sums) + 5000000)
+        ax7.axvline(x=max(index) * base_offset + base_offset - 0.3, color=htw_grey, linewidth=65,
+                    alpha=0.5)  # Trennlinie nach rechts verschieben
+        ax_sec.set_ylim(0, max_y)
+
+        # Elemente der Achsen und der Legende festlegen
+        ax7.set_ylabel('Gemeindeeinnahmen über 25 Jahre', fontweight='bold', fontsize='10', labelpad=10)
+        ax_sec.set_ylabel('Gesamteinnahmen', fontweight='bold', fontsize='10', labelpad=10)
+        plt.title('Gemeindeeinnahmen Grünheide (Mark) je Technologie (25 Jahre)', fontweight='bold', pad=10)
+
+        # x-Achsenbeschriftungen
+        ticks_x = [i * base_offset for i in index] + [i + base_offset * 3.5 for i in index]
+        plt.xticks(ticks_x, ['WEA-MAX', 'FFPV-MAX', 'APV-MAX', 'WEA', 'FFPV', 'APV'])
+        ax7.grid(True, linestyle='-', zorder=0, color='#ddd')
+        ax7.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
+        ax_sec.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
+
+        # Legenden für beide Achsen kombinieren und doppelte Einträge entfernen
+        handles_7, labels_7 = ax7.get_legend_handles_labels()
+        handles_sec, labels_sec = ax_sec.get_legend_handles_labels()
+        handles, labels = handles_7 + handles_sec, labels_7 + labels_sec
+        unique_handles_labels = dict(zip(labels, handles))
+        final_labels, final_handles = zip(*unique_handles_labels.items())
+        plt.legend(final_handles, final_labels, bbox_to_anchor=(0.5, -0.1), loc='upper center', ncol=4, shadow=False,
+                   frameon=False)
+
+        plt.tight_layout()
+        plt.savefig(PLOTS_DIR / plot_file_gesamteinnahmen)
+
         def format_numbers(value):
             return f"{value:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
 
@@ -890,6 +1060,10 @@ def main():
         max_steuer_1 = format_numbers(max_steuer_1)
         max_steuer_2 = format_numbers(max_steuer_2)
         max_steuer_3 = format_numbers(max_steuer_3)
+        sum_wea = format_numbers(sum_wea)
+        sum_ff_pv = format_numbers(sum_ff_pv)
+        sum_agri_pv = format_numbers(sum_agri_pv)
+
 
         results.update({"wind_eeg_yearly": wind_eeg_yearly,
                    "pv_eeg_yearly": pv_eeg_yearly,
@@ -898,6 +1072,7 @@ def main():
                         "pv_sr_bb_yearly": pv_sr_bb_yearly,
                         "apv_sr_bb_yearly": apv_sr_bb_yearly,
                    "plot_file_komm_wert_jaehrliche_pachteinnahmen": plot_file_komm_wert_jaehrliche_pachteinnahmen,
+                        "plot_file_gesamteinnahmen": plot_file_gesamteinnahmen,
                    "plot_file_einnahmen_wind_solar_euro": plot_file_einnahmen_wind_solar_euro,
                    "plot_file_komm_wert_eeg_einnahmen": plot_file_komm_wert_eeg_einnahmen,
                         "gesamt_gewerbesteuer_1": gesamt_gewerbesteuer_1,
@@ -918,6 +1093,9 @@ def main():
                         'max_steuer_1': max_steuer_1,
                         'max_steuer_2': max_steuer_2,
                         'max_steuer_3': max_steuer_3,
+                        'sum_wea': sum_wea,
+                        'sum_ff_pv': sum_ff_pv,
+                        'sum_agri_pv': sum_agri_pv,
                         })
 
         try:

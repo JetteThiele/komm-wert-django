@@ -76,7 +76,8 @@ def submit(request):
         'plot_file_komm_wert_eeg_einnahmen',
         'plot_file_gewerbesteuer_agri_pv',
         'plot_file_gewerbesteuer_ff_pv',
-        'plot_file_gewerbesteuer_wind'
+        'plot_file_gewerbesteuer_wind',
+        'plot_file_gesamteinnahmen'
     ]
 
     def plots_exist():
@@ -108,6 +109,7 @@ def submit(request):
         'plot_gewerbesteuer_wind': results.get('plot_file_gewerbesteuer_wind'),
         'plot_gewerbesteuer_ff_pv': results.get('plot_file_gewerbesteuer_ff_pv'),
         'plot_gewerbesteuer_agri_pv': results.get('plot_file_gewerbesteuer_agri_pv'),
+        'plot_file_gesamteinnahmen': results.get('plot_file_gesamteinnahmen'),
         'time_instance': int(time())
     })
 
