@@ -2,4 +2,4 @@ FROM nginx:alpine
 
 RUN addgroup -S www-data && adduser -S www-data -G www-data
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY /etc/nginx/nginx.conf /etc/nginx/nginx.conf
