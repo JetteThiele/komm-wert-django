@@ -1020,7 +1020,8 @@ def main():
                    frameon=False)
 
         plt.tight_layout()
-        plt.show()
+        plt.savefig(PLOTS_DIR / plot_file_gesamteinnahmen)
+
         def format_numbers(value):
             return f"{value:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
 
