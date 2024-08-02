@@ -17,6 +17,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./staticfiles:/app/staticfiles  # Stelle sicher, dass das Verzeichnis korrekt gemountet ist
     ports:
       - "80:80"
     depends_on:
