@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Abhängigkeiten kopieren
 COPY requirements.txt /app/
-COPY ../gunicorn_config.py /app/
+COPY gunicorn_config.py /app/
 # Abhängigkeiten installieren
 RUN pip install --no-cache-dir -r requirements.txt
 
