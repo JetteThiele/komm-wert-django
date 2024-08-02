@@ -26,4 +26,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Startbefehl setzen
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "komm_wert_django.wsgi:application"]
+CMD ["gunicorn", "--config", "gunicorn_config.py", "komm_wert_django.wsgi:application"]

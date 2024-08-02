@@ -81,17 +81,21 @@ def submit(request):
     ]
 
     def plots_exist():
+        missing_plots = []
         for key in required_keys:
             plot_file = results.get(key)
             filepath = PLOTS_DIR / plot_file if plot_file else None
             if not (plot_file and filepath.exists()):
+                missing_plots.append(key)
                 logging.error(f"Fehlt: {key} -> {filepath}")
-                return False
+        if missing_plots:
+            logging.error(f"Fehlende Plots: {missing_plots}")
+            return False
         return True
 
     start_time = time()
-    timeout_seconds = 600
-    sleep_interval = 2
+    timeout_seconds =1200
+    sleep_interval = 5
 
     logging.debug("Prüfe, ob die Plots existieren...")
 
