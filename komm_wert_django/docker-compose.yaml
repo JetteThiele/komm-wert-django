@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    command: gunicorn --config gunicorn_config.py komm_wert_django.wsgi:application
+    command: gunicorn --config /app/gunicorn_config.py komm_wert_django.wsgi:application
     volumes:
       - .:/app
     expose:
@@ -16,9 +16,9 @@ services:
   nginx:
     image: nginx:alpine
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - web
 
