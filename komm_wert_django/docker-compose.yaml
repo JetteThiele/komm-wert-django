@@ -19,6 +19,8 @@ services:
       dockerfile: Dockerfile.nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl-cert.crt:/etc/nginx/ssl-cert.crt:ro
+      - ./nginx/privkey.pem:/etc/nginx/privkey.pem:ro
       - ./staticfiles:/app/staticfiles  # Stelle sicher, dass das Verzeichnis korrekt gemountet ist
     ports:
       - "80:80"
