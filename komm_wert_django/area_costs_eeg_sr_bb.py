@@ -189,11 +189,13 @@ def main():
             sz_ghm = 0.3
         else:
             sz_ghm = levy_rate * 100
+
         # standard mun value key if None is given
         if mun_key_value == 0:
             hebesatz = 3.34
         else:
             hebesatz = mun_key_value / 100
+
         # if no area for eeg or wind-euro is given, set to 100%
         if wea_eeg_share == 0:
             wea_eeg_share = 1
@@ -203,6 +205,7 @@ def main():
             wind_euro_share = 1
         else:
             wind_euro_share = wind_euro_share / 100
+
         # Calculate max. power if only area is given
         if wea_p_max == 0 and wea_area_max != 0:
             A_wea = (np.pi * rotor_diameter * 5 * rotor_diameter * 3)/5
@@ -222,6 +225,7 @@ def main():
             apv_hor_p_max = apvh_area_max * apvh_mw_ha
         else:
             apv_hor_p_max = apv_hor_p_max
+
         # Calculate area if only power is given
         if wea_area_max == 0 and wea_p_max != 0:
             A_wea = (np.pi * rotor_diameter * 5 * rotor_diameter * 3)/5
@@ -238,7 +242,7 @@ def main():
         else:
             apvv_area_max = apvv_area_max
         if apvh_area_max == 0 and apv_hor_p_max != 0:
-            apvh_area_max = apvh_area_max / apvh_mw_ha
+            apvh_area_max = apv_hor_p_max / apvh_mw_ha
         else:
             apvh_area_max = apvh_area_max
         # invest costs for tec depending on power of tec
