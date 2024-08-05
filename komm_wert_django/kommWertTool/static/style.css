@@ -5,16 +5,18 @@ h1 {
     font-size:2rem
 }
 .blurred-bg {
-      position: relative;
+      position: absolute;
       background-image: url('bg-wea.jpg'); /* Pfad zum Hintergrundbild */
       background-size: cover;
       background-position: center;
-      height: 100vh; /* Höhe des Containers, z.B. Vollbildhöhe */
-      filter: blur(8px); /* Weichzeichner-Effekt */
+      height: 100%; /* Höhe des Containers, z.B. Vollbildhöhe */
+      filter: blur(5px); /* Weichzeichner-Effekt */
+      width:100%
     }
 .container {
     background: #fff;
     opacity: 0.8;
+    padding:30px;
 }
 .container img {
     width: 100%
