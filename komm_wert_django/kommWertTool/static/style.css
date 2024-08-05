@@ -4,6 +4,18 @@ h3, h1 {
 h1 {
     font-size:2rem
 }
+.blurred-bg {
+      position: relative;
+      background-image: url('bg-wea.jpg'); /* Pfad zum Hintergrundbild */
+      background-size: cover;
+      background-position: center;
+      height: 100vh; /* Höhe des Containers, z.B. Vollbildhöhe */
+      filter: blur(8px); /* Weichzeichner-Effekt */
+    }
+.container {
+    background: #fff;
+    opacity: 0.8;
+}
 .container img {
     width: 100%
 }
