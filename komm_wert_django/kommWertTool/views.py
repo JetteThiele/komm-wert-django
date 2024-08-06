@@ -68,7 +68,7 @@ def submit(request):
     clear_plots_directory()
 
     # Ausführung des externen Skripts
-    results = run_external_script('area_costs_eeg_sr_bb.py')
+    results = run_external_script('cal_mun_rev.py')
 
     required_keys = [
         'plot_file_komm_wert_jaehrliche_pachteinnahmen',

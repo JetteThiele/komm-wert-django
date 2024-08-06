@@ -4,23 +4,24 @@
     <title>Kommunaler Wertschöpfungsrechner</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        {% load static %}
+    {% load static %}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <!-- CSS Datei einbinden -->
-<link href="{% static 'style.css' %}" rel="stylesheet">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-3">
-    <h1>Kommunaler Wertschöpfungsrechner</h1>
-    <p>Dies ist ein Tool zur Berechnung der kommunalen Wertschöpfung in brandenburgischen Gemeinden. Es liefert eine
-        grobe Einschätzung des Wertschöpfungspotenzials basierend auf den eingegebenen Daten. Der Rechner ermittelt die
+    <h1>Rechner für die direkte Wertschöpfung durch erneuerbare Technologien</h1>
+    <p>Dies ist ein Tool zur Berechnung der direkten kommunalen Wertschöpfung durch Windenergie-,
+        Freiflächen-Photovoltaik und Agri-Photovoltaik-Anlagen in brandenburgischen Gemeinden. Es liefert eine
+        Einschätzung des Wertschöpfungspotenzials basierend auf den eingegebenen Daten. Der Rechner ermittelt die
         möglichen Einnahmen durch die EEG-Beteiligung, den Wind- und Solar-Euro sowie Pachteinnahmen. Es ist wichtig zu
         beachten, dass die tatsächliche Wertschöpfung deutlich höher ausfallen kann, wenn lokale Unternehmen einbezogen
         werden, Bürger-Beteiligungen erfolgen und induzierte Effekte berücksichtigt werden. Dieses Tool bietet Kommunen
-        die Möglichkeit, die direkte wirtschaftlichen Vorteile des Ausbaus erneuerbarer Energien abzuschätzen und fundierte
-        Entscheidungen für eine nachhaltige Entwicklung zu treffen.</p>
+        die Möglichkeit, die direkten wirtschaftlichen Vorteile des Ausbaus erneuerbarer Energien abzuschätzen und
+        fundierte Entscheidungen für eine nachhaltige Entwicklung zu treffen.</p>
     <hr>
     <div class="row">
         <div class="col-md-12">
@@ -95,9 +96,9 @@
                                                                                         href="https://bravors.brandenburg.de/sixcms/media.php/68/Anlage.64734510.pdf"
                                                                                         target="_blank"
                                                                                         title="Schlüsselzahlen brandenburgischer Gemeinden">hier</a>):
-                                   <i class="fas fa-info-circle" data-placement="right" data-toggle="tooltip"
+                                        <i class="fas fa-info-circle" data-placement="right" data-toggle="tooltip"
                                            title="Falls nicht bekannt, wird eine Schlüsselzahl von 0,003 angenommen."></i>
-                                     </label>
+                                    </label>
                                     <input class="form-control" id="mun_key_num" name="mun_key_num"
                                            type="number">
                                 </div>
@@ -271,7 +272,8 @@
                                             <i class="fas fa-info-circle" data-placement="right" data-toggle="tooltip"
                                                title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
                                         </label>
-                                        <input class="form-control" disabled id="pv_p_max" name="pv_p_max" type="number">
+                                        <input class="form-control" disabled id="pv_p_max" name="pv_p_max"
+                                               type="number">
                                     </div>
 
                                 </div>
@@ -331,168 +333,171 @@
                                 Agri-Photovoltaik vertikal (APVV)
                             </a>
                         </div>
-            <div class="collapse" data-parent="#accordion" id="collapseThree">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="apvv_area_max">
-                                            Größe der Potenzialfläche in ha:
-                                            <i class="fas fa-info-circle" data-placement="right" data-toggle="tooltip"
-                                               title="Die Fläche ist relevant für die Einnahmen durch Pachterlöse. Wenn nicht bekannt wird diese anhand der maximal installierbaren Leistung berechnet."></i>
-                                            <i class="fas fa-calculator" data-placement="right" data-toggle="tooltip"
-                                               title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
-                                        </label>
-                                        <input class="form-control" disabled id="apvv_area_max" name="apvv_area_max"
-                                               type="number">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="apv_ver_p_max">
-                                            Maximal installierbare Leistung in MW:
-                                            <i class="fas fa-info-circle" data-placement="right" data-toggle="tooltip"
-                                               title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
-                                        </label>
-                                        <input class="form-control" disabled id="apv_ver_p_max" name="apv_ver_p_max"
-                                               type="number">
-                                    </div>
-                                </div>
-                                <div class="row align-items-center my-4 green">
-                                    <div class="col">
-                                        <hr class="border-2 border-dark">
-                                    </div>
-                                    <div class="col-auto">
-                                        <h6 class="mb-0"><b>Optional</b></h6>
-                                    </div>
-                                    <div class="col">
-                                        <hr class="border-2 border-dark">
-                                    </div>
-                                </div>
-                                <div id="flaecheneigentuemer-container-apvv">
-                                    <div class="row mt-3" id="flaecheneigentuemer-apvv-1">
+                        <div class="collapse" data-parent="#accordion" id="collapseThree">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-md-6">
-                                            <label for="apvv_area_ownertype1">Flächeneigentum:
+                                            <label for="apvv_area_max">
+                                                Größe der Potenzialfläche in ha:
                                                 <i class="fas fa-info-circle" data-placement="right"
                                                    data-toggle="tooltip"
-                                                   title="Als Gemeinde erhalten Sie Einnahmen durch die Pachterlöse. Dies kann direkt erfolgen oder durch Steuereinnahmen je nach Eigentumsstruktur. Falls die Eigentümer nicht bekannt sind, werden die Pachteinnahmen nicht berücksichtigt."></i>
+                                                   title="Die Fläche ist relevant für die Einnahmen durch Pachterlöse. Wenn nicht bekannt wird diese anhand der maximal installierbaren Leistung berechnet."></i>
+                                                <i class="fas fa-calculator" data-placement="right"
+                                                   data-toggle="tooltip"
+                                                   title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
                                             </label>
-                                            <select class="form-control" id="apvv_area_ownertype1"
-                                                    name="apvv_area_ownertype1">
-                                                <option>Bitte wählen:</option>
-                                                <option value="Privateigentum">Privateigentum</option>
-                                                <option value="Gewerbliches Eigentum">Gewerbliches Eigentum</option>
-                                                <option value="Gemeindeeigentum">Gemeindeeigentum</option>
-                                                <option value="Landes-/Bundeseigentum">Landes-/Bundeseigentum
-                                                </option>
-                                            </select>
+                                            <input class="form-control" disabled id="apvv_area_max" name="apvv_area_max"
+                                                   type="number">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="apvv_anteil_flaeche1">Anteil an Fläche in %:</label>
-                                            <input class="form-control" id="apvv_anteil_flaeche1"
-                                                   name="apvv_anteil_flaeche1"
-                                                   oninput="validateAnteilFlaeche('apvv')"
+                                            <label for="apv_ver_p_max">
+                                                Maximal installierbare Leistung in MW:
+                                                <i class="fas fa-info-circle" data-placement="right"
+                                                   data-toggle="tooltip"
+                                                   title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
+                                            </label>
+                                            <input class="form-control" disabled id="apv_ver_p_max" name="apv_ver_p_max"
                                                    type="number">
                                         </div>
                                     </div>
+                                    <div class="row align-items-center my-4 green">
+                                        <div class="col">
+                                            <hr class="border-2 border-dark">
+                                        </div>
+                                        <div class="col-auto">
+                                            <h6 class="mb-0"><b>Optional</b></h6>
+                                        </div>
+                                        <div class="col">
+                                            <hr class="border-2 border-dark">
+                                        </div>
+                                    </div>
+                                    <div id="flaecheneigentuemer-container-apvv">
+                                        <div class="row mt-3" id="flaecheneigentuemer-apvv-1">
+                                            <div class="col-md-6">
+                                                <label for="apvv_area_ownertype1">Flächeneigentum:
+                                                    <i class="fas fa-info-circle" data-placement="right"
+                                                       data-toggle="tooltip"
+                                                       title="Als Gemeinde erhalten Sie Einnahmen durch die Pachterlöse. Dies kann direkt erfolgen oder durch Steuereinnahmen je nach Eigentumsstruktur. Falls die Eigentümer nicht bekannt sind, werden die Pachteinnahmen nicht berücksichtigt."></i>
+                                                </label>
+                                                <select class="form-control" id="apvv_area_ownertype1"
+                                                        name="apvv_area_ownertype1">
+                                                    <option>Bitte wählen:</option>
+                                                    <option value="Privateigentum">Privateigentum</option>
+                                                    <option value="Gewerbliches Eigentum">Gewerbliches Eigentum</option>
+                                                    <option value="Gemeindeeigentum">Gemeindeeigentum</option>
+                                                    <option value="Landes-/Bundeseigentum">Landes-/Bundeseigentum
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="apvv_anteil_flaeche1">Anteil an Fläche in %:</label>
+                                                <input class="form-control" id="apvv_anteil_flaeche1"
+                                                       name="apvv_anteil_flaeche1"
+                                                       oninput="validateAnteilFlaeche('apvv')"
+                                                       type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-secondary mt-3 btn-sm" id="addMoreBtn-apvv" type="button">
+                                        + Flächeneigentümer hinzufügen
+                                    </button>
+                                    <button class="btn btn-danger mt-3 btn-sm" id="removeLastBtn-apvv"
+                                            style="display:none;"
+                                            type="button">- Weniger Flächeneigentümer
+                                    </button>
                                 </div>
-                                <button class="btn btn-secondary mt-3 btn-sm" id="addMoreBtn-apvv" type="button">
-                                    + Flächeneigentümer hinzufügen
-                                </button>
-                                <button class="btn btn-danger mt-3 btn-sm" id="removeLastBtn-apvv"
-                                        style="display:none;"
-                                        type="button">- Weniger Flächeneigentümer
-                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bereich 4 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="card-link disabled" data-toggle="collapse" href="#collapseFour" id="linkFour">
+                                Agri-Photovoltaik horizontal (APVH)
+                            </a>
+                        </div>
+                        <div class="collapse" data-parent="#accordion" id="collapseFour">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="apvh_area_max">
+                                                Größe der Potenzialfläche in ha:
+                                                <i class="fas fa-info-circle" data-placement="right"
+                                                   data-toggle="tooltip"
+                                                   title="Die Fläche ist relevant für die Einnahmen durch Pachterlöse. Wenn nicht bekannt wird diese anhand der maximal installierbaren Leistung berechnet."></i>
+                                                <i class="fas fa-calculator" data-placement="right"
+                                                   data-toggle="tooltip"
+                                                   title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
+                                            </label>
+                                            <input class="form-control" disabled id="apvh_area_max" name="apvh_area_max"
+                                                   type="number">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="apv_hor_p_max">
+                                                Maximal installierbare Leistung in MW:
+                                                <i class="fas fa-info-circle" data-placement="right"
+                                                   data-toggle="tooltip"
+                                                   title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
+                                            </label>
+                                            <input class="form-control" disabled id="apv_hor_p_max" name="apv_hor_p_max"
+                                                   type="number">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center my-4 green">
+                                        <div class="col">
+                                            <hr class="border-2 border-dark">
+                                        </div>
+                                        <div class="col-auto">
+                                            <h6 class="mb-0"><b>Optional</b></h6>
+                                        </div>
+                                        <div class="col">
+                                            <hr class="border-2 border-dark">
+                                        </div>
+                                    </div>
+
+                                    <div id="flaecheneigentuemer-container-apvh">
+                                        <div class="row mt-3" id="flaecheneigentuemer-apvh-1">
+                                            <div class="col-md-6">
+                                                <label for="apvh_area_ownertype1">Flächeneigentum:
+                                                    <i class="fas fa-info-circle" data-placement="right"
+                                                       data-toggle="tooltip"
+                                                       title="Als Gemeinde erhalten Sie Einnahmen durch die Pachterlöse. Dies kann direkt erfolgen oder durch Steuereinnahmen je nach Eigentumsstruktur. Falls die Eigentümer nicht bekannt sind, werden die Pachteinnahmen nicht berücksichtigt."></i>
+                                                </label>
+                                                <select class="form-control" id="apvh_area_ownertype1"
+                                                        name="apvh_area_ownertype1">
+                                                    <option>Bitte wählen:</option>
+                                                    <option value="Privateigentum">Privateigentum</option>
+                                                    <option value="Gewerbliches Eigentum">Gewerbliches Eigentum</option>
+                                                    <option value="Gemeindeeigentum">Gemeindeeigentum</option>
+                                                    <option value="Landes-/Bundeseigentum">Landes-/Bundeseigentum
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="apvh_anteil_flaeche1">Anteil an Fläche in %:</label>
+                                                <input class="form-control" id="apvh_anteil_flaeche1"
+                                                       name="apvh_anteil_flaeche1"
+                                                       oninput="validateAnteilFlaeche('apvh')"
+                                                       type="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-secondary mt-3 btn-sm" id="addMoreBtn-apvh" type="button">
+                                        + Flächeneigentümer hinzufügen
+                                    </button>
+                                    <button class="btn btn-danger mt-3 btn-sm" id="removeLastBtn-apvh"
+                                            style="display:none;"
+                                            type="button">- Weniger Flächeneigentümer
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Bereich 4 -->
-                <div class="card">
-                    <div class="card-header">
-                        <a class="card-link disabled" data-toggle="collapse" href="#collapseFour" id="linkFour">
-                            Agri-Photovoltaik horizontal (APVH)
-                        </a>
-                    </div>
-                    <div class="collapse" data-parent="#accordion" id="collapseFour">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="apvh_area_max">
-                                            Größe der Potenzialfläche in ha:
-                                            <i class="fas fa-info-circle" data-placement="right"
-                                               data-toggle="tooltip"
-                                               title="Die Fläche ist relevant für die Einnahmen durch Pachterlöse. Wenn nicht bekannt wird diese anhand der maximal installierbaren Leistung berechnet."></i>
-                                            <i class="fas fa-calculator" data-placement="right"
-                                               data-toggle="tooltip"
-                                               title="Wenn die Fläche in m² vorliegt, teilen Sie diese durch 10.000. Bei km² nehmen Sie die Fläche mal 100."></i>
-                                        </label>
-                                        <input class="form-control" disabled id="apvh_area_max" name="apvh_area_max"
-                                               type="number">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="apv_hor_p_max">
-                                            Maximal installierbare Leistung in MW:
-                                            <i class="fas fa-info-circle" data-placement="right"
-                                               data-toggle="tooltip"
-                                               title="Geben Sie die Leistung in MW an, für die Sie die Wertschöpfung berechnen möchten. Alternativ wird die installierbare Leistung anhand der Potenzialfläche ermittelt."></i>
-                                        </label>
-                                        <input class="form-control" disabled id="apv_hor_p_max" name="apv_hor_p_max"
-                                               type="number">
-                                    </div>
-                                </div>
-                                <div class="row align-items-center my-4 green">
-                                    <div class="col">
-                                        <hr class="border-2 border-dark">
-                                    </div>
-                                    <div class="col-auto">
-                                        <h6 class="mb-0"><b>Optional</b></h6>
-                                    </div>
-                                    <div class="col">
-                                        <hr class="border-2 border-dark">
-                                    </div>
-                                </div>
 
-                                <div id="flaecheneigentuemer-container-apvh">
-                                    <div class="row mt-3" id="flaecheneigentuemer-apvh-1">
-                                        <div class="col-md-6">
-                                            <label for="apvh_area_ownertype1">Flächeneigentum:
-                                                <i class="fas fa-info-circle" data-placement="right"
-                                                   data-toggle="tooltip"
-                                                   title="Als Gemeinde erhalten Sie Einnahmen durch die Pachterlöse. Dies kann direkt erfolgen oder durch Steuereinnahmen je nach Eigentumsstruktur. Falls die Eigentümer nicht bekannt sind, werden die Pachteinnahmen nicht berücksichtigt."></i>
-                                            </label>
-                                            <select class="form-control" id="apvh_area_ownertype1"
-                                                    name="apvh_area_ownertype1">
-                                                <option>Bitte wählen:</option>
-                                                <option value="Privateigentum">Privateigentum</option>
-                                                <option value="Gewerbliches Eigentum">Gewerbliches Eigentum</option>
-                                                <option value="Gemeindeeigentum">Gemeindeeigentum</option>
-                                                <option value="Landes-/Bundeseigentum">Landes-/Bundeseigentum
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="apvh_anteil_flaeche1">Anteil an Fläche in %:</label>
-                                            <input class="form-control" id="apvh_anteil_flaeche1"
-                                                   name="apvh_anteil_flaeche1"
-                                                   oninput="validateAnteilFlaeche('apvh')"
-                                                   type="number">
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn btn-secondary mt-3 btn-sm" id="addMoreBtn-apvh" type="button">
-                                    + Flächeneigentümer hinzufügen
-                                </button>
-                                <button class="btn btn-danger mt-3 btn-sm" id="removeLastBtn-apvh"
-                                        style="display:none;"
-                                        type="button">- Weniger Flächeneigentümer
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn btn-primary mt-3" type="submit">Absenden</button>
+                <button class="btn btn-primary mt-3" type="submit">Absenden</button>
     </form>
 </div>
 

@@ -411,7 +411,6 @@ def main():
         '''
         EEG participation
         '''
-        check = ff_pv_profile['GHM-solar-pv_ground-profile'].sum()
         wind_eeg_yearly = ((np.array(wind_profile['GHM-wind-onshore-profile']) * wea_p_max) * eeg_beteiligung).sum() * wea_eeg_share
         pv_eeg_yearly = ((ff_pv_profile['GHM-solar-pv_ground-profile'] * pv_p_max) * eeg_beteiligung).sum()
         apv_eeg_yearly = (((agri_pv_ver_profile['GHM-agri-pv_ver_ground-profile'] * apv_ver_p_max) + (
@@ -451,7 +450,7 @@ def main():
         apv_sr_bb_yearly = (apv_ver_p_max + apv_hor_p_max) * bb_euro_mw_pv
 
         '''
-        Plots
+        Plots special regulation BB and EEG participation
         '''
 
         # Yearly area costs and municipal revenue
@@ -692,19 +691,19 @@ def main():
 
         def plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe, title,
                                      filename):
-            summierte_gewerbesteuer = [0] * 25  # Initialisierung für 25 Jahre
+            summierte_gewerbesteuer = [0] * 25  # Initialization for 25 years
 
-            # Summiere die Gewerbesteuer über die spezifischen Szenarien
+            # Add up the trade tax across the specific scenarios
             for szenarioname in szenariennamen_fuer_summe:
                 for jahr, steuer in gewerbesteuer_results.get(szenarioname, []):
                     if jahr <= 25:
-                        summierte_gewerbesteuer[jahr - 1] += steuer  # Jahr-1 wegen nullbasiertem Index
+                        summierte_gewerbesteuer[jahr - 1] += steuer  # Year-1 due to zero-based index
 
-            # Erstelle die Listen für alle Jahre (1 bis 25)
+            # Create the lists for all years (1 to 25)
             jahre = list(range(1, 26))
             steuern = [max(0, summierte_gewerbesteuer[jahr - 1]) for jahr in jahre]
 
-            # Plot der summierten positiven Gewerbesteuerjahre
+            # Plot of the total positive trade tax years
             figGW, axGW = plt.subplots()
             plt.bar(jahre, steuern, color=htw_green, width=0.9, zorder=2, label='Gewerbesteuereinnahmen')
 
@@ -822,6 +821,7 @@ def main():
         szenariennamen_fuer_summe_2 = ["APVV100", "APVH100"]
         szenariennamen_fuer_summe_3 = ["Wind100"]
 
+        # finding maximum annual trade tax
         def max_annual_sum(gewerbesteuer_results, szenariennamen_fuer_summe):
             summierte_steuern = [0] * 25
 
@@ -841,6 +841,7 @@ def main():
         max_steuer_2 = max_annual_sum(gewerbesteuer_results, szenariennamen_fuer_summe_2)
         max_steuer_3 = max_annual_sum(gewerbesteuer_results, szenariennamen_fuer_summe_3)
 
+        # total trade tax over 25 years
         gesamt_gewerbesteuer_1 = sum(
             sum(jahressteuer for jahr, jahressteuer in gewerbesteuer_results[szenarioname] if jahressteuer > 0) for
             szenarioname in szenariennamen_fuer_summe_1)
@@ -870,7 +871,7 @@ def main():
 
         years = 25
 
-        # Array mit allen Szenarien bilden
+        # Form array with all scenarios
         gewerbesteuer_anlagen = [gesamt_gewerbesteuer_3, gesamt_gewerbesteuer_1,
                                  gesamt_gewerbesteuer_2]
         eeg_einnahmen = [wind_eeg_degradation_result.sum(), pv_eeg_degradation_result.sum(),
@@ -878,19 +879,18 @@ def main():
         sr_bb_einnahmen = [wind_sr_bb_yearly * years, pv_sr_bb_yearly * years, apv_sr_bb_yearly * years]
 
         def plot_bars(ax, index, data, base_offset, offset, label, color, height_stores, bar_width=0.4):
-            # Sicherstellen, dass offset eine Liste ist
             if isinstance(offset, (int, float)):
                 offset = [offset] * len(data)
             elif len(data) != len(offset):
                 raise ValueError("Length of data and offsets must be the same")
 
-            # Initialisieren der height_stores
+            # Initializing the height_stores
             for i in range(len(index)):
                 for height_store in height_stores:
                     while len(height_store) <= i:
                         height_store.append(0)
 
-            # Plotten der Balken
+            # Plotting the bars
             bars = []
             for i, (idx, val) in enumerate(zip(index, data)):
                 bar_position = idx * base_offset + offset[i]
@@ -901,7 +901,7 @@ def main():
                              zorder=2)
                 bars.append(bar[0])
 
-                # Höhe zu den height_stores hinzufügen
+                # Add height to the height_stores
                 if val == 0:
                     height_stores[i][idx].append(0)
                 else:
@@ -934,13 +934,11 @@ def main():
         base_offset = 3.5
         offset_scenario_2_and_3 = [-1.5, -0.9, -0.3, 0.3, 0.9, 1.5]
 
-        # Initialisieren der heights Listen
+        # Initializing the heights lists
         heights_wea = [[] for _ in range(len(index))]
         heights_ff_pv = [[] for _ in range(len(index))]
         heights_agri_pv = [[] for _ in range(len(index))]
 
-
-        # Aufrufen von plot_bars mit den Beispielwerten und sicherstellen der Offsets als Liste
         gewst_anlagen_gewinne = plot_bars(ax7, index, gewerbesteuer_anlagen, base_offset,
                                           [offset_scenario_2_and_3[0]] * len(index),
                                           'GewSt.-Einnahmen Anlagengewinne', '#1f77b4',
@@ -964,42 +962,41 @@ def main():
                                        [offset_scenario_2_and_3[5]] * len(index),
                                        'ESt.-Einnahmen Pacht', '#bcbd22', [heights_wea, heights_ff_pv, heights_agri_pv])
 
-        # Zahlenwerte über den Balken anzeigen
+        # Display numerical values above the bar
         for bar_set in [gewst_anlagen_gewinne, sr_bb_einnahmen_sec, eeg_einnahmen_sec, pachteinnahmen_area,
                         pachteinnahmen_gewst, pachteinnahmen_est]:
             for bar in bar_set:
                 height = bar.get_height()
-                if height > 0:  # Nur Werte größer als 0 anzeigen
+                if height > 0:
                     ax7.annotate(format_height(height),
                                  xy=(bar.get_x() + bar.get_width() / 2, height),  #
-                                 xytext=(0, 3),  # Abstand von 3 erhöhen für bessere Sichtbarkeit
+                                 xytext=(0, 3),
                                  textcoords="offset points",
                                  ha='center', va='bottom', fontweight='bold', fontsize='9',
                                  bbox=dict(facecolor='white', edgecolor='none', pad=2))
 
-        # Berechnung der Summen für jede Kategorie (WEA, FF-PV, Agri-PV)
+        # Calculation of the totals for each category (WEA, FF-PV, Agri-PV)
         sum_wea = np.sum([sum(heights) for heights in heights_wea])
         sum_ff_pv = np.sum([sum(heights) for heights in heights_ff_pv])
         sum_agri_pv = np.sum([sum(heights) for heights in heights_agri_pv])
 
         sums = [sum_wea, sum_ff_pv, sum_agri_pv]
 
-        # Plotten der Summen für jede Kategorie
+        # Plotting the totals for each category
         sum_positions = [x + base_offset * 3.5 for x in index]
         summary_bars = ax_sec.bar(sum_positions, sums, bar_width, alpha=1, color='k', label='Gesamteinnahmen')
 
-        # Zahlenwerte über den Summenbalken anzeigen
+        # Display numerical values via the totals bar
         for rect in summary_bars:
             height = rect.get_height()
             formatted_height = format_height(height)
-            if height > 0:  # Nur Werte größer als 0 anzeigen
+            if height > 0:
                 ax_sec.annotate(formatted_height,
                                 xy=(rect.get_x() + rect.get_width() / 2, height),
-                                xytext=(0, 3),  # Abstand von 3 erhöhen für bessere Sichtbarkeit
+                                xytext=(0, 3),
                                 textcoords="offset points",
                                 ha='center', va='bottom', fontweight='bold', fontsize='9')
 
-        # Darstellungseinstellungen
         max_y = max(ax7.get_ylim()[1], max(sums) + 5000000)
         ax7.axvline(x=max(index) * base_offset + base_offset - 0.3, color="#7f7f7f", linewidth=65, alpha=0.5)
         ax_sec.set_ylim(0, max_y)
@@ -1014,7 +1011,6 @@ def main():
         ax7.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
         ax_sec.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
 
-        # Legenden kombinieren und doppelte entfernen
         handles_7, labels_7 = ax7.get_legend_handles_labels()
         handles_sec, labels_sec = ax_sec.get_legend_handles_labels()
         handles, labels = handles_7 + handles_sec, labels_7 + labels_sec
@@ -1026,6 +1022,7 @@ def main():
         plt.tight_layout()
         plt.savefig(PLOTS_DIR / plot_file_gesamteinnahmen)
 
+        # correct format for values diplayed on result.html
         def format_numbers(value):
             return f"{value:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
 
