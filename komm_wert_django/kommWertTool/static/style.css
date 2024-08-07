@@ -143,7 +143,6 @@ input[type=range]::-webkit-slider-thumb {
     background: #002E50;
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: -100vw 0 0 100vw #007bff;
 }
 input[type=range]::-moz-range-thumb, input[type=range]::-ms-thumb {
     width: 15px !important;
@@ -151,8 +150,7 @@ input[type=range]::-moz-range-thumb, input[type=range]::-ms-thumb {
     background: #002E50;
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: -100vw 0 0 100vw #007bff;
-}
+
 
 input[type=range]::-moz-range-progress {
     background: transparent;
