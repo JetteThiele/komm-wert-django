@@ -129,7 +129,11 @@ small.text-danger {
 .green h6 {
     color: #44af69
 }
-
+input[type=range] {
+        -webkit-appearance: none;
+        width:100%;
+    height:10px
+}
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -140,15 +144,7 @@ input[type=range]::-webkit-slider-thumb {
     border-radius: 50%;
     box-shadow: -100vw 0 0 100vw #007bff;
 }
-input[type=range]::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    background: #002E50;
-    cursor: pointer;
-    border-radius: 50%;
-    box-shadow: -100vw 0 0 100vw #007bff;
-}
-input[type=range]::-ms-thumb {
+input[type=range]::-moz-range-thumb, input[type=range]::-ms-thumb {
     width: 15px;
     height: 15px;
     background: #002E50;
