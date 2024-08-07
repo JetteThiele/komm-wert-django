@@ -140,6 +140,14 @@ input[type=range]::-webkit-slider-thumb {
     border-radius: 50%;
     box-shadow: -100vw 0 0 100vw #007bff;
 }
+input[type=range]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #002E50;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: -100vw 0 0 100vw #007bff;
+}
 
 input[type=range]::-moz-range-progress {
     background: #002E50;
