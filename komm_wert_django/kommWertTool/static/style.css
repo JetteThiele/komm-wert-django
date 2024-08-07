@@ -154,13 +154,10 @@ input[type=range]::-moz-range-thumb, input[type=range]::-ms-thumb {
     box-shadow: -100vw 0 0 100vw #007bff;
 }
 
-input[type=range]::-moz-range-progress, input[type=range]::-ms-fill-lower {
-    background: #002E50;
+input[type=range]::-moz-range-progress {
+    background: transparent;
     height: 8px;
     border-radius: 5px;
-}
-input[type=range]::-ms-fill-upper {
-    height:8px
 }
 input[type=range]::-moz-range-track, input[type=range]::-ms-track {
     width: 100%;
@@ -168,6 +165,18 @@ input[type=range]::-moz-range-track, input[type=range]::-ms-track {
     background: #ccd5dc;
     border-radius: 5px;
 }
+input[type=range]:focus::-ms-fill-lower {
+    background: #002E50;
+}
+input[type=range]:focus::-ms-fill-upper {
+    background: #9babba;
+}
+
+input[type=range]::-ms-fill-upper, input[type=range]::-ms-fill-lower  {
+    height:8px;
+    background: #9babba;
+}
+
 
 input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
