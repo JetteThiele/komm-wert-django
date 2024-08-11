@@ -979,7 +979,7 @@ def main():
                                  xy=(bar.get_x() + bar.get_width() / 2, height),  #
                                  xytext=(0, 3),
                                  textcoords="offset points",
-                                 ha='center', va='bottom', fontweight='bold', fontsize='9',
+                                 ha='center', va='bottom', fontweight='bold', fontsize='9', rotation=90,
                                  bbox=dict(facecolor='white', edgecolor='none', pad=2))
 
         # Calculation of the totals for each category (WEA, FF-PV, Agri-PV)
