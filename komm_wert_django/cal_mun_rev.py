@@ -882,7 +882,9 @@ def main():
         eeg_einnahmen = [wind_eeg_degradation_result.sum(), pv_eeg_degradation_result.sum(),
                          apv_eeg_degradation_result.sum()]
         sr_bb_einnahmen = [wind_sr_bb_yearly * years, pv_sr_bb_yearly * years, apv_sr_bb_yearly * years]
-
+        area_costs_yearly = np.array(area_costs_yearly) * years
+        area_gewst_yearly = np.array(area_gewst_yearly) * years
+        area_est_yearly = np.array(area_est_yearly) * years
         def plot_bars(ax, index, data, base_offset, offset, label, color, height_stores, bar_width=0.4):
             if isinstance(offset, (int, float)):
                 offset = [offset] * len(data)
