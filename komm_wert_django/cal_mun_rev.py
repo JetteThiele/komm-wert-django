@@ -157,8 +157,11 @@ apv_area_costs = 830 # €/ha
 wea_area_costs = 16000 # € / MW
 # colors
 htw_green = '#76B900'
+htw_green_darker = '#0C9349'
 htw_blue = '#0082D1'
+htw_blue_lighter = '#59A2CE'
 htw_orange = '#FF5F00'
+htw_orange_lighter = '#E68850'
 htw_grey = '#AFAFAF'
 htw_yellow = '#FDDA0D'
 htw_light_grey = '#3d3d3d'
@@ -943,15 +946,15 @@ def main():
 
         gewst_anlagen_gewinne = plot_bars(ax7, index, gewerbesteuer_anlagen, base_offset,
                                           [offset_scenario_2_and_3[0]] * len(index),
-                                          'GewSt.-Einnahmen Anlagengewinne', htw_blue,
+                                          'GewSt.-Einnahmen Anlagengewinne', htw_blue_lighter,
                                           [heights_wea, heights_ff_pv, heights_agri_pv])
         sr_bb_einnahmen_sec = plot_bars(ax7, index, sr_bb_einnahmen, base_offset,
                                         [offset_scenario_2_and_3[1]] * len(index),
-                                        'Einnahmen Wind-/Solar-Euro', htw_orange,
+                                        'Einnahmen Wind-/Solar-Euro', htw_orange_lighter,
                                         [heights_wea, heights_ff_pv, heights_agri_pv])
         eeg_einnahmen_sec = plot_bars(ax7, index, eeg_einnahmen, base_offset,
                                       [offset_scenario_2_and_3[2]] * len(index),
-                                      'Einnahmen EEG-Beteiligung', htw_green,
+                                      'Einnahmen EEG-Beteiligung', htw_green_darker,
                                       [heights_wea, heights_ff_pv, heights_agri_pv])
         pachteinnahmen_area = plot_bars(ax7, index, area_costs_yearly, base_offset,
                                         [offset_scenario_2_and_3[3]] * len(index),
@@ -1004,7 +1007,7 @@ def main():
         ax_sec.set_ylim(0, max_y)
 
         ax7.set_ylabel('Gemeindeeinnahmen über 25 Jahre', fontweight='bold', fontsize='10', labelpad=10)
-        ax_sec.set_ylabel('Gesamteinnahmen', fontweight='bold', fontsize='10', labelpad=10)
+        #ax_sec.set_ylabel('Gesamteinnahmen', fontweight='bold', fontsize='10', labelpad=10)
         plt.title('Gemeindeeinnahmen Grünheide (Mark) je Technologie (25 Jahre)', fontweight='bold', pad=10)
 
         ticks_x = [i * base_offset for i in index] + [i + base_offset * 3.5 for i in index]
