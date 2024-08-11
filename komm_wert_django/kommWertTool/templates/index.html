@@ -6,13 +6,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     {% load static %}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <!-- CSS Datei einbinden -->
     <link href="{% static 'style.css' %}" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-3">
+<div class="container mt-1">
     <h1>Rechner für die direkte Wertschöpfung durch erneuerbare Technologien</h1>
     <p>Dies ist ein Tool zur Berechnung der direkten kommunalen Wertschöpfung durch Windenergie-,
         Freiflächen-Photovoltaik und Agri-Photovoltaik-Anlagen in brandenburgischen Gemeinden. Es liefert eine
@@ -28,7 +26,7 @@
             <div class="alert alert-info mb-0">
                 <p><b>Anwendungshinweis:</b></p>
                 <p>Es reicht die Angabe der Potenzialfläche oder der maximal installierbaren
-                    Leistung, insofern sie keine weiteren Informationen vorliegen haben. Weitere
+                    Leistung, insofern Sie keine weiteren Informationen vorliegen haben. Weitere
                     benötigte Werte werden
                     mittels Standardverfahren und -werten berechnet.</p>
             </div>
@@ -37,7 +35,6 @@
     <hr>
 
     <p><b>In meiner Gemeinde gibt es Potenzial für:</b></p>
-    <!-- Checkboxen zum Steuern der Akkordeon-Bereiche -->
     <div class="row mt-3 mb-3">
         <div class="col-md-3">
             <div class="form-check">
@@ -78,7 +75,6 @@
     <form action="{% url 'submit' %}" method="POST">
         {% csrf_token %}
         <div id="accordion">
-            <!-- Bereich 1 -->
             <div class="card">
                 <div class="card-header">
                     <a class="card-link light" data-toggle="collapse" href="#collapseGeneral">
@@ -243,7 +239,6 @@
                     </div>
                 </div>
 
-                <!-- Bereich 2 -->
                 <div class="card">
                     <div class="card-header">
                         <a class="card-link disabled" data-toggle="collapse" href="#collapseTwo" id="linkTwo">
@@ -326,7 +321,6 @@
                         </div>
                     </div>
 
-                    <!-- Bereich 3 -->
                     <div class="card">
                         <div class="card-header">
                             <a class="card-link disabled" data-toggle="collapse" href="#collapseThree" id="linkThree">
@@ -410,7 +404,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Bereich 4 -->
                     <div class="card">
                         <div class="card-header">
                             <a class="card-link disabled" data-toggle="collapse" href="#collapseFour" id="linkFour">
@@ -508,18 +501,18 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
 
-        // Alle Checkboxen beim Laden der Seite deselektieren
+        // Deselect all checkboxes when loading the page
         $('input[type="checkbox"]').prop('checked', false);
 
-        // Alle Eingabefelder beim Laden der Seite leeren
+        // Empty all input fields when loading the page
         $('input[type="text"]').val('');
 
-        // Sicherstellen, dass alle Akkordeon-Bereiche deaktiviert starten
+        // Ensure that all accordion areas start deactivated
         toggleAccordions();
     });
 
     function toggleAccordions() {
-        // Alle Checkboxen und die zugehörigen Akkordeon-Bereiche
+        // All checkboxes and the associated accordion areass
         let checkboxes = [
             {checkbox: $("#checkbox1"), collapse: "#collapseOne", link: "#linkOne"},
             {checkbox: $("#checkbox2"), collapse: "#collapseTwo", link: "#linkTwo"},
@@ -672,7 +665,7 @@
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
-        toggleRemoveButton('wea'); // Initiale Prüfung zum Verstecken des Buttons
+        toggleRemoveButton('wea');
         toggleRemoveButton('ffpv');
         toggleRemoveButton('apvv');
         toggleRemoveButton('apvh');

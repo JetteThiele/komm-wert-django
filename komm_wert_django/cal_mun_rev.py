@@ -161,6 +161,8 @@ htw_blue = '#0082D1'
 htw_orange = '#FF5F00'
 htw_grey = '#AFAFAF'
 htw_yellow = '#FDDA0D'
+htw_light_grey = '#3d3d3d'
+
 def main():
     results = {}  # Define results dictionary before the try block to ensure accessibility in case of an error
     try:
@@ -480,19 +482,19 @@ def main():
 
         plot_area_costs = ax.bar(index + bar_width * 2.5, area_costs_yearly, bar_width,
                                  alpha=opacity,
-                                 color=htw_green,
+                                 color=htw_grey,
                                  label='Direkte Pachteinnahmen',
                                  zorder=2)
 
         plot_area_ekst = ax.bar(index + bar_width * (-0.3), area_est_yearly, bar_width,
                                     alpha=opacity,
-                                    color=htw_yellow,
+                                    color=htw_light_grey,
                                     label='Komm. ESt-Anteil',
                                     zorder=2)
 
         plot_area_gewst = ax.bar(index + bar_width * 1.1, area_gewst_yearly, bar_width,
                                      alpha=opacity,
-                                     color=htw_orange,
+                                     color=htw_yellow,
                                      label='Komm. GewSt-Anteil',
                                      zorder=2)
 
@@ -689,7 +691,7 @@ def main():
                 gewinn_start_jahr if gewinn_start_jahr is not None else "kein Gewinn"), jahresgewinne, gewerbesteuer, kumulierte_jahresgewinne
 
 
-        def plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe, title,
+        def plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe, bar_color, title,
                                      filename):
             summierte_gewerbesteuer = [0] * 25  # Initialization for 25 years
 
@@ -705,7 +707,7 @@ def main():
 
             # Plot of the total positive trade tax years
             figGW, axGW = plt.subplots()
-            plt.bar(jahre, steuern, color=htw_green, width=0.9, zorder=2, label='Gewerbesteuereinnahmen')
+            plt.bar(jahre, steuern, color=bar_color, width=0.9, zorder=2, label='Gewerbesteuereinnahmen')
 
             plt.xlabel('Jahre', fontweight='bold', fontsize='10', labelpad=10)
             plt.ylabel('Gewerbesteuereinnahmen', fontweight='bold', fontsize='10', labelpad=5)
@@ -786,14 +788,14 @@ def main():
              "investitionskosten": wea_invest_cost,
              "betriebskosten10": 44000, "betriebskosten20": 53000, "fremdkapitalanteil": 0.8, "zinshoehe": 0.05,
              "tilgungsdauer": 15, "title": "Gewerbesteuer der WEA-MAX",
-             "filename": "komm-wert-gwst-anlagenbetreibende-wind100.png", "freibetrag": 0, "tilgungsfreie_jahre": 1,
+             "filename": "komm-wert-gwst-anlagenbetreibende-wind100.png", "bar_color": htw_orange, "freibetrag": 0, "tilgungsfreie_jahre": 1,
              "name": 'Wind100', "abschreibungs_dauer": 16, "degradation": 0.006},  # FF-PV 100%
             {"berechnete_mw": pv_p_max, "genehmigte_anlagen": 0, "erzeugte_energiemenge": 1000000,
              "preis_pro_mengeneinheit": 0.073, "eeg_beteiligung": 2,
              "profil": ff_pv_profile['GHM-solar-pv_ground-profile'], "sr_bb_euro": 2000, "investitionskosten": ffpv_invest_costs,
              "betriebskosten10": 14300, "betriebskosten20": 14300, "fremdkapitalanteil": 0.8, "zinshoehe": 0.03,
              "tilgungsdauer": 15, "title": "Gewerbesteuer der FFPV-MAX",
-             "filename": "komm-wert-gwst-anlagenbetreibende-ff-pv-100.png", "freibetrag": 24500,
+             "filename": "komm-wert-gwst-anlagenbetreibende-ff-pv-100.png", "bar_color": htw_green, "freibetrag": 24500,
              "tilgungsfreie_jahre": 1, "name": 'FFPV100', "abschreibungs_dauer": 20, "degradation": 0.005},
             # Agri-PV hor. 100%
             {"berechnete_mw": apv_hor_p_max, "genehmigte_anlagen": 0, "erzeugte_energiemenge": apvh_invest_costs,
@@ -802,7 +804,7 @@ def main():
              "investitionskosten": 945000, "betriebskosten10": 12870, "betriebskosten20": 12870,
              "fremdkapitalanteil": 0.8, "zinshoehe": 0.03, "tilgungsdauer": 15,
              "title": "Max. Gewerbesteuer der Agri-PV-Anlagen (hor.)",
-             "filename": "komm-wert-gwst-anlagenbetreibende-agri-pv-hor-1.png", "freibetrag": 24500,
+             "filename": "komm-wert-gwst-anlagenbetreibende-agri-pv-hor-1.png", "bar_color": htw_blue, "freibetrag": 24500,
              "tilgungsfreie_jahre": 1, "name": 'APVH100', "abschreibungs_dauer": 20, "degradation": 0.005},
             # Agri-PV ver. 100%
             {"berechnete_mw": apv_ver_p_max, "genehmigte_anlagen": 0, "erzeugte_energiemenge": apvv_invest_costs,
@@ -811,7 +813,7 @@ def main():
              "investitionskosten": 831000, "betriebskosten10": 11440, "betriebskosten20": 11440,
              "fremdkapitalanteil": 0.8, "zinshoehe": 0.03, "tilgungsdauer": 15,
              "title": "Max. Gewerbesteuer der Agri-PV-Anlagen (ver.)",
-             "filename": "komm-wert-gwst-anlagenbetreibende-agri-pv-ver-1.png", "freibetrag": 24500,
+             "filename": "komm-wert-gwst-anlagenbetreibende-agri-pv-ver-1.png", "bar_color": htw_blue, "freibetrag": 24500,
              "tilgungsfreie_jahre": 1, "name": 'APVV100', "abschreibungs_dauer": 20, "degradation": 0.005},
         ]
         for szenario in szenarien:
@@ -857,11 +859,11 @@ def main():
         plot_file_gewerbesteuer_ff_pv = f'gewerbesteuer-ff-pv_{timestamp}.png'
         plot_file_gewerbesteuer_agri_pv = f'gewerbesteuer-agri-pv_{timestamp}.png'
 
-        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_1, "Gewerbesteuereinnahmen FFPV-MAX",
+        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_1,htw_green, "Gewerbesteuereinnahmen FFPV-MAX",
                                  plot_file_gewerbesteuer_ff_pv)
-        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_2, "Gewerbesteuereinnahmen APV-MAX",
+        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_2, htw_blue,"Gewerbesteuereinnahmen APV-MAX",
                                  plot_file_gewerbesteuer_agri_pv)
-        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_3, "Gewerbesteuereinnahmen WEA-MAX",
+        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_3, htw_orange,"Gewerbesteuereinnahmen WEA-MAX",
                                  plot_file_gewerbesteuer_wind)
 
 
@@ -941,26 +943,26 @@ def main():
 
         gewst_anlagen_gewinne = plot_bars(ax7, index, gewerbesteuer_anlagen, base_offset,
                                           [offset_scenario_2_and_3[0]] * len(index),
-                                          'GewSt.-Einnahmen Anlagengewinne', '#1f77b4',
+                                          'GewSt.-Einnahmen Anlagengewinne', htw_blue,
                                           [heights_wea, heights_ff_pv, heights_agri_pv])
         sr_bb_einnahmen_sec = plot_bars(ax7, index, sr_bb_einnahmen, base_offset,
                                         [offset_scenario_2_and_3[1]] * len(index),
-                                        'Einnahmen Wind-/Solar-Euro', '#ff7f0e',
+                                        'Einnahmen Wind-/Solar-Euro', htw_orange,
                                         [heights_wea, heights_ff_pv, heights_agri_pv])
         eeg_einnahmen_sec = plot_bars(ax7, index, eeg_einnahmen, base_offset,
                                       [offset_scenario_2_and_3[2]] * len(index),
-                                      'Einnahmen EEG-Beteiligung', '#2ca02c',
+                                      'Einnahmen EEG-Beteiligung', htw_green,
                                       [heights_wea, heights_ff_pv, heights_agri_pv])
         pachteinnahmen_area = plot_bars(ax7, index, area_costs_yearly, base_offset,
                                         [offset_scenario_2_and_3[3]] * len(index),
-                                        'Direkte Pachteinnahmen', 'red', [heights_wea, heights_ff_pv, heights_agri_pv])
+                                        'Direkte Pachteinnahmen', htw_grey, [heights_wea, heights_ff_pv, heights_agri_pv])
         pachteinnahmen_gewst = plot_bars(ax7, index, area_gewst_yearly, base_offset,
                                          [offset_scenario_2_and_3[4]] * len(index),
-                                         'GewSt.-Einnahmen Pacht', '#7f7f7f',
+                                         'GewSt.-Einnahmen Pacht', htw_yellow,
                                          [heights_wea, heights_ff_pv, heights_agri_pv])
         pachteinnahmen_est = plot_bars(ax7, index, area_est_yearly, base_offset,
                                        [offset_scenario_2_and_3[5]] * len(index),
-                                       'ESt.-Einnahmen Pacht', '#bcbd22', [heights_wea, heights_ff_pv, heights_agri_pv])
+                                       'ESt.-Einnahmen Pacht', htw_light_grey, [heights_wea, heights_ff_pv, heights_agri_pv])
 
         # Display numerical values above the bar
         for bar_set in [gewst_anlagen_gewinne, sr_bb_einnahmen_sec, eeg_einnahmen_sec, pachteinnahmen_area,
@@ -981,10 +983,10 @@ def main():
         sum_agri_pv = np.sum([sum(heights) for heights in heights_agri_pv])
 
         sums = [sum_wea, sum_ff_pv, sum_agri_pv]
-
+        sum_colors = [htw_orange, htw_green, htw_blue]
         # Plotting the totals for each category
         sum_positions = [x + base_offset * 3.5 for x in index]
-        summary_bars = ax_sec.bar(sum_positions, sums, bar_width, alpha=1, color='k', label='Gesamteinnahmen')
+        summary_bars = ax_sec.bar(sum_positions, sums, bar_width, alpha=1, color=sum_colors, label='Gesamteinnahmen')
 
         # Display numerical values via the totals bar
         for rect in summary_bars:
