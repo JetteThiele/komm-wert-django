@@ -991,7 +991,7 @@ def main():
         sum_colors = [htw_orange, htw_green, htw_blue]
         # Plotting the totals for each category
         sum_positions = [x + base_offset * 3.5 for x in index]
-        summary_bars = ax_sec.bar(sum_positions, sums, bar_width, alpha=1, color=sum_colors, label='Gesamteinnahmen')
+        summary_bars = ax_sec.bar(sum_positions, sums, bar_width, alpha=1, color=sum_colors)
 
         # Display numerical values via the totals bar
         for rect in summary_bars:
