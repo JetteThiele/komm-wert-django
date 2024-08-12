@@ -157,11 +157,11 @@ apv_area_costs = 830 # €/ha
 wea_area_costs = 16000 # € / MW
 # colors
 htw_green = '#76B900'
-htw_green_darker = '#005B00'
+htw_green_darker = '#8FC264'
 htw_blue = '#0082D1'
-htw_blue_lighter = '#ADD8E6'
+htw_blue_lighter = '#6BB8E6'
 htw_orange = '#FF5F00'
-htw_orange_lighter = '#D10000'
+htw_orange_lighter = '#FF9900'
 htw_grey = '#AFAFAF'
 htw_yellow = '#FDDA0D'
 htw_light_grey = '#3d3d3d'
