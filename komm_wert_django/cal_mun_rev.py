@@ -1005,12 +1005,9 @@ def main():
                                 ha='center', va='bottom', fontweight='bold', fontsize='9', rotation=60)
 
         max_y = max(ax7.get_ylim()[1], max(sums))
-        max_y7 = max(ax7.get_ylim()[1])
-        padding7 = max_y7 * 0.1
         padding = max_y * 0.1
         ax7.axvline(x=max(index) * base_offset + base_offset - 0.3, color="#7f7f7f", linewidth=65, alpha=0.5)
         ax_sec.set_ylim(0, max_y + padding)
-        ax7.set_ylim(0, max_y7 + padding7)
 
         ax7.set_ylabel('Gemeindeeinnahmen über 25 Jahre', fontweight='bold', fontsize='10', labelpad=10)
         #ax_sec.set_ylabel('Gesamteinnahmen', fontweight='bold', fontsize='10', labelpad=10)
