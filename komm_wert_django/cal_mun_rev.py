@@ -1004,7 +1004,8 @@ def main():
                                 textcoords="offset points",
                                 ha='center', va='bottom', fontweight='bold', fontsize='9', rotation=60)
 
-        max_y = max(ax7.get_ylim()[1], max(sums) + 5000000)
+        max_y = max(ax7.get_ylim()[1], max(sums))
+
         ax7.axvline(x=max(index) * base_offset + base_offset - 0.3, color="#7f7f7f", linewidth=65, alpha=0.5)
         ax_sec.set_ylim(0, max_y)
 
