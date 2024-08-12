@@ -478,7 +478,7 @@ def main():
         def custom_formatter(x, pos):
             if x >= 1_000_000:
                 return f'{x / 1_000_000:.1f} Mio €'.replace(".", ",")
-            elif x >= 1_000:
+            elif x >= 0:
                 return f'{x / 1_000:.1f} T€'.replace(".", ",")
             else:
                 return str(x)
@@ -550,7 +550,7 @@ def main():
             plt.legend(bbox_to_anchor=(0.5, 0), loc='upper center', ncol=n_bars, shadow=False, frameon=False)
             plt.setp(ax.get_xticklabels(), visible=False)
             ax.tick_params(axis='x', which='both', length=0)
-            ax.yaxis.set_major_formatter(custom_formatter)
+            ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f"{int(x):,} \u20ac".replace(",", ".")))
             ax.grid(True, linestyle='-', zorder=0, color='#ddd')
             plt.tight_layout()
 
