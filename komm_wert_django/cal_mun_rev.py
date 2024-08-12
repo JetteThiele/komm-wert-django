@@ -161,7 +161,7 @@ htw_green_darker = '#005B00'
 htw_blue = '#0082D1'
 htw_blue_lighter = '#ADD8E6'
 htw_orange = '#FF5F00'
-htw_orange_lighter = '#D6A700'
+htw_orange_lighter = '#D10000'
 htw_grey = '#AFAFAF'
 htw_yellow = '#FDDA0D'
 htw_light_grey = '#3d3d3d'
@@ -938,7 +938,7 @@ def main():
         fig, ax7 = plt.subplots(figsize=(12, 7))
         ax_sec = ax7.twinx()
 
-        base_offset = 3.5
+        base_offset = 4
         offset_scenario_2_and_3 = [-1.5, -0.9, -0.3, 0.3, 0.9, 1.5]
 
         # Initializing the heights lists
@@ -979,7 +979,7 @@ def main():
                                  xy=(bar.get_x() + bar.get_width() / 2, height),  #
                                  xytext=(0, 3),
                                  textcoords="offset points",
-                                 ha='center', va='bottom', fontweight='bold', fontsize='9', rotation=45,
+                                 ha='center', va='bottom', fontweight='bold', fontsize='9', rotation=60,
                                  bbox=dict(facecolor='white', edgecolor='none', pad=2))
 
         # Calculation of the totals for each category (WEA, FF-PV, Agri-PV)
@@ -1002,7 +1002,7 @@ def main():
                                 xy=(rect.get_x() + rect.get_width() / 2, height),
                                 xytext=(0, 3),
                                 textcoords="offset points",
-                                ha='center', va='bottom', fontweight='bold', fontsize='9')
+                                ha='center', va='bottom', fontweight='bold', fontsize='9', rotation=60)
 
         max_y = max(ax7.get_ylim()[1], max(sums) + 5000000)
         ax7.axvline(x=max(index) * base_offset + base_offset - 0.3, color="#7f7f7f", linewidth=65, alpha=0.5)
@@ -1028,6 +1028,7 @@ def main():
 
         plt.tight_layout()
         plt.savefig(PLOTS_DIR / plot_file_gesamteinnahmen)
+        plt.show()
 
         # correct format for values diplayed on result.html
         def format_numbers(value):
