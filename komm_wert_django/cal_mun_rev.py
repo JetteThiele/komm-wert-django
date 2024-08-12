@@ -512,7 +512,7 @@ def main():
                         ha='center', va='bottom', fontweight='bold', fontsize='9')
 
         ax.set_ylabel('Einnahmen in €', fontweight='bold', fontsize='10', labelpad=10)
-        plt.xticks(index + bar_width, ('WEA-MAX', 'FFPV-MAX', 'APV-MAX'))
+        plt.xticks(index + bar_width, ('WEA', 'FF-PV', 'APV'))
         lines1, labels1 = ax.get_legend_handles_labels()
         plt.legend(lines1, labels1, bbox_to_anchor=(0.5, -0.1), loc='upper center', ncol=2,
                    shadow=False, frameon=False)
@@ -558,7 +558,7 @@ def main():
             plt.close()
         # eeg participation maximum
         index = np.arange(1)  # Eine Gruppe
-        bar_labels = ['WEA-MAX', 'FFPV-MAX', 'APV-MAX']
+        bar_labels = ['WEA', 'FF-PV', 'APV']
         bar_values = [wind_eeg_yearly, pv_eeg_yearly, apv_eeg_yearly]
         bar_width = 0.2
         y_label = 'Einnahmen durch § 6 EEG in €'
@@ -790,14 +790,14 @@ def main():
              "profil": wind_profile['GHM-wind-onshore-profile'], "sr_bb_euro": 5000,
              "investitionskosten": wea_invest_cost,
              "betriebskosten10": 44000, "betriebskosten20": 53000, "fremdkapitalanteil": 0.8, "zinshoehe": 0.05,
-             "tilgungsdauer": 15, "title": "Gewerbesteuer der WEA-MAX",
+             "tilgungsdauer": 15, "title": "Gewerbesteuer der WEA",
              "filename": "komm-wert-gwst-anlagenbetreibende-wind100.png", "bar_color": htw_orange, "freibetrag": 0, "tilgungsfreie_jahre": 1,
              "name": 'Wind100', "abschreibungs_dauer": 16, "degradation": 0.006},  # FF-PV 100%
             {"berechnete_mw": pv_p_max, "genehmigte_anlagen": 0, "erzeugte_energiemenge": 1000000,
              "preis_pro_mengeneinheit": 0.073, "eeg_beteiligung": 2,
              "profil": ff_pv_profile['GHM-solar-pv_ground-profile'], "sr_bb_euro": 2000, "investitionskosten": ffpv_invest_costs,
              "betriebskosten10": 14300, "betriebskosten20": 14300, "fremdkapitalanteil": 0.8, "zinshoehe": 0.03,
-             "tilgungsdauer": 15, "title": "Gewerbesteuer der FFPV-MAX",
+             "tilgungsdauer": 15, "title": "Gewerbesteuer der FF-PV",
              "filename": "komm-wert-gwst-anlagenbetreibende-ff-pv-100.png", "bar_color": htw_green, "freibetrag": 24500,
              "tilgungsfreie_jahre": 1, "name": 'FFPV100', "abschreibungs_dauer": 20, "degradation": 0.005},
             # Agri-PV hor. 100%
@@ -862,11 +862,11 @@ def main():
         plot_file_gewerbesteuer_ff_pv = f'gewerbesteuer-ff-pv_{timestamp}.png'
         plot_file_gewerbesteuer_agri_pv = f'gewerbesteuer-agri-pv_{timestamp}.png'
 
-        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_1,htw_green, "Gewerbesteuereinnahmen FFPV-MAX",
+        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_1,htw_green, "Gewerbesteuereinnahmen FF-PV",
                                  plot_file_gewerbesteuer_ff_pv)
-        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_2, htw_blue,"Gewerbesteuereinnahmen APV-MAX",
+        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_2, htw_blue,"Gewerbesteuereinnahmen APV",
                                  plot_file_gewerbesteuer_agri_pv)
-        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_3, htw_orange,"Gewerbesteuereinnahmen WEA-MAX",
+        plot_gewerbesteuer_summe(gewerbesteuer_results, szenariennamen_fuer_summe_3, htw_orange,"Gewerbesteuereinnahmen WEA",
                                  plot_file_gewerbesteuer_wind)
 
 
@@ -1010,11 +1010,10 @@ def main():
         ax_sec.set_ylim(0, max_y + padding)
 
         ax7.set_ylabel('Gemeindeeinnahmen über 25 Jahre', fontweight='bold', fontsize='10', labelpad=10)
-        #ax_sec.set_ylabel('Gesamteinnahmen', fontweight='bold', fontsize='10', labelpad=10)
         plt.title('Gemeindeeinnahmen Grünheide (Mark) je Technologie (25 Jahre)', fontweight='bold', pad=10)
 
         ticks_x = [i * base_offset for i in index] + [i + base_offset * 3.5 for i in index]
-        plt.xticks(ticks_x, ['WEA-MAX', 'FFPV-MAX', 'APV-MAX', 'WEA', 'FFPV', 'APV'])
+        plt.xticks(ticks_x, ['WEA', 'FF-PV', 'APV', 'Gesamt\nWEA', 'Gesamt\nFF-PV', 'Gesamt\nAPV'])
         ax7.grid(True, linestyle='-', zorder=0, color='#ddd')
         ax7.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
         ax_sec.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
